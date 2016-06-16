@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    tools:context="com.symbel.appejerciciopractico1.MainActivity"
+    android:background="@mipmap/background_xxxhdpi_1280x1920">
+
+    <TextView
+        android:text="@string/loginLBL"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/loginLBL"
+        android:textSize="50dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="46dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:background="@color/accent_material_dark"/>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@android:style/Widget.EditText"
+        android:layout_below="@+id/loginLBL"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="46dp"
+        android:id="@+id/relativeLayout"
+        android:background="@color/accent_material_dark">
+        <EditText
+            android:hint="@string/usuarioTF"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_toLeftOf="@+id/UserButton"
+            android:background="@null"
+            android:layout_centerVertical="true"
+            android:id="@+id/usuarioTF"/>
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:id="@+id/UserButton"
+            android:src="@drawable/user"
+            android:background="@null"/>
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@android:style/Widget.EditText"
+        android:layout_below="@+id/relativeLayout"
+        android:layout_centerHorizontal="true"
+        android:background="@color/accent_material_dark"
+        android:id="@+id/relativeLayout2">
+        <EditText
+            android:hint="@string/contrasenaTF"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_toLeftOf="@+id/PasswordButton"
+            android:background="@null"
+            android:layout_centerVertical="true"
+            android:inputType="number"
+            android:id="@+id/passwordTF"/>
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:id="@+id/PasswordButton"
+            android:src="@drawable/password"
+            android:background="@null"/>
+    </RelativeLayout>
+
+
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/OK_BTN"
+        android:id="@+id/loginBTN"
+        android:background="@drawable/btn_circle_pressed"
+        android:textSize="30dp"
+        android:layout_alignTop="@+id/borrarBTN"
+        android:layout_toRightOf="@+id/loginLBL"
+        android:layout_toEndOf="@+id/loginLBL"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/BORRAR_BTN"
+        android:id="@+id/borrarBTN"
+        android:background="@drawable/btn_circle_pressed"
+        android:textSize="20dp"
+        android:layout_below="@+id/relativeLayout2"
+        android:layout_toLeftOf="@+id/loginLBL"
+        android:layout_toStartOf="@+id/loginLBL"
+        android:layout_marginTop="82dp"/>
+
+</RelativeLayout>

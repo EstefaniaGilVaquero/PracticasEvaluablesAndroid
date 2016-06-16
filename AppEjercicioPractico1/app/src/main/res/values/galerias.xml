@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="galerias">
+        <item>Bicis</item>
+        <item>Patines</item>
+    </string-array>
+
+    <string-array name="bicis">
+        <item>@drawable/bici_carretera</item>
+        <item>@drawable/bici_enduro</item>
+        <item>@drawable/bici_paseo</item>
+        <item>@drawable/bici_xcontry</item>
+    </string-array>
+
+    <string-array name="patines">
+        <item>@drawable/hockey</item>
+        <item>@drawable/quads</item>
+        <item>@drawable/inline</item>
+    </string-array>
+</resources>
