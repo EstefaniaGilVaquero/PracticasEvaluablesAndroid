@@ -3,6 +3,7 @@ package com.symbel.appejerciciopractico1;
 import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -51,19 +52,18 @@ public class MainActivity extends AppCompatActivity {
 
     public boolean validarUsuarioContrasena(){
 
-//        boolean validado = false;
-//
-//        EditText usuarioTF = (EditText) findViewById(R.id.usuarioTF);
-//        EditText passwordTF = (EditText) findViewById(R.id.passwordTF);
-//
-//        if ( usuarioTF.getText().length()!=0 && passwordTF.getText().length()!=0){
-//            //Validamos contra BD
-//            validado = baseDatosGaleria.validarUsuarioPassword(usuarioTF.getText().toString(),Integer.parseInt(passwordTF.getText().toString()));
-//
-//        }
-//
-//        return validado;
-        return true;
+        boolean validado = false;
+
+        EditText usuarioTF = (EditText) findViewById(R.id.usuarioTF);
+        EditText passwordTF = (EditText) findViewById(R.id.passwordTF);
+
+        if ( usuarioTF.getText().length()!=0 && passwordTF.getText().length()!=0){
+            //Validamos contra BD
+            validado = baseDatosGaleria.validarUsuarioPassword(usuarioTF.getText().toString(),Integer.parseInt(passwordTF.getText().toString()));
+
+        }
+
+        return validado;
 
     }
 
@@ -76,6 +76,12 @@ public class MainActivity extends AppCompatActivity {
         usuarioTF.setText("");
         passwordTF.setText("");
 
+    }
+
+    public String getUsuario(){
+        EditText usuarioTF = (EditText) findViewById(R.id.usuarioTF);
+        Log.d(getClass().getCanonicalName(), "Usuario: " + usuarioTF.getText().toString());
+        return usuarioTF.getText().toString();
     }
 
 }

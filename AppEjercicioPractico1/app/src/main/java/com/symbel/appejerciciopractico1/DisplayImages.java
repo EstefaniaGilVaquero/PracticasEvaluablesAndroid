@@ -1,11 +1,13 @@
 package com.symbel.appejerciciopractico1;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -23,10 +25,19 @@ public class DisplayImages extends AppCompatActivity implements AdapterView.OnIt
     Context context;
 
     Spinner spGallery;
+
+    //el array seleccionado en cada momento
     TypedArray arraySelec = null;
+
     Drawable drawable;
 
+    //indice para recorrer el array de imagenes
     Integer contadorImagenes = 0;
+
+    //Intent que laza esta actividad
+    Intent intent = getIntent();
+
+
 
 
     @Override
@@ -37,16 +48,10 @@ public class DisplayImages extends AppCompatActivity implements AdapterView.OnIt
         //Relleno spinner de galerias
         spGallery = (Spinner) findViewById(R.id.spinnerGallery);
 
-        //Cargo los arrays de imagenes
-        Resources resources = getResources();
-        TypedArray biciArray = resources.obtainTypedArray(R.array.bicis);
-        TypedArray biciPatines = resources.obtainTypedArray(R.array.patines);
-
         ArrayAdapter adapter = ArrayAdapter.createFromResource( this, R.array.galerias , android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
         spGallery.setAdapter(adapter);
-
         spGallery.setOnItemSelectedListener(this);
 
         //Listener
@@ -57,6 +62,12 @@ public class DisplayImages extends AppCompatActivity implements AdapterView.OnIt
         botonSI.setOnClickListener(objetoEscuchador);
         Button botonNO = (Button)findViewById(R.id.noBTN);
         botonNO.setOnClickListener(objetoEscuchador);
+        Button botonFAV = (Button)findViewById(R.id.favoritosBTN);
+        botonFAV.setOnClickListener(objetoEscuchador);
+
+        //Pongo el nombre del usuario en el boton de favoritos
+        String usuario = intent.getStringExtra("Usuario");
+        botonFAV.setText(usuario);
 
 
     }
@@ -69,7 +80,13 @@ public class DisplayImages extends AppCompatActivity implements AdapterView.OnIt
 
                 ImageView imagenGaleria = (ImageView) findViewById(R.id.galleryView);
 
+                //Guardamos que array de imagenes se ha cargado en una variable de clase
                 this.setArraySelec();
+
+                //Reseteamos el contador de imagenes a 0
+                contadorImagenes = 0;
+
+                //Cargamos la primera imagen del array en el imageView
                 drawable = arraySelec.getDrawable(0);
                 imagenGaleria.setImageDrawable(drawable);
                 break;
@@ -105,11 +122,15 @@ public class DisplayImages extends AppCompatActivity implements AdapterView.OnIt
         int galSelec = spGallery.getSelectedItemPosition();
 
         switch (galSelec) {
+            //Esta cargado el array de bicis
             case 0:
+                Log.d(getClass().getCanonicalName(), "Ha seleccionado galeria Bicis");
                 arraySelec = arrayBicis;
                 break;
 
+            //Esta cargado el array de patines
             case 1:
+                Log.d(getClass().getCanonicalName(), "Ha seleccionado galeria Patines");
                 arraySelec = arrayPatines;
                 break;
 

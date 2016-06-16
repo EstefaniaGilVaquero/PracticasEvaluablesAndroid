@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.Toast;
 
 /**
@@ -40,6 +41,9 @@ public class escuchaEventos implements View.OnClickListener{
                     //Intent para llamar a la actividad DisplayImages
                     Intent intent1 = new Intent(context, DisplayImages.class);
                     Activity a = (Activity) context;
+                    //Enviamos el usuario al la liguiente actividad
+                    //TODO: Enviar usuario en el intent, no funciona
+                   // intent1.putExtra("Usuario", mMainActivity.getUsuario());
                     a.startActivity(intent1);
                 //Si NO ha introducido el usuario o la contrasena correctos
                 }else{
@@ -61,7 +65,6 @@ public class escuchaEventos implements View.OnClickListener{
             case R.id.noBTN:
                 Log.d(getClass().getCanonicalName(), "Ha pulsado boton NO");
                 //TODO: Guardar en BD la respuesta
-                //mostrarImagenes.guardarEleccion(R.id.noBTN);
                 mDisplayImages = (DisplayImages) this.context;
                 mDisplayImages.nextImgae();
                 break;
