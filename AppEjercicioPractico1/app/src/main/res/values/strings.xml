@@ -7,6 +7,7 @@
     <string name="botonNO">NO</string>
     <string name="usuarioTF">Usuario</string>
     <string name="contrasenaTF">Contraseña</string>
+    <string name="FavoritosBTN">Favoritos</string>
 
 
 </resources>

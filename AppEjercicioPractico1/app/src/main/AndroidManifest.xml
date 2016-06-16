@@ -17,6 +17,8 @@
         </activity>
         <activity android:name=".DisplayImages">
         </activity>
+        <activity android:name=".FavoritosActivity">
+        </activity>
     </application>
 
 </manifest>

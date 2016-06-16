@@ -16,13 +16,6 @@
         android:id="@+id/galleryView"
         android:layout_gravity="center"/>
 
-    <Spinner
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/spinnerGallery"
-        android:drawSelectorOnTop="true"
-        android:layout_gravity="center_horizontal|top"/>
-
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -39,6 +32,19 @@
         android:layout_gravity="right|bottom"
         android:background="@drawable/btn_circle"/>
 
+    <Spinner
+        android:layout_width="148dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/spinnerGallery"
+        android:drawSelectorOnTop="true"
+        android:layout_gravity="left|top"/>
+
+    <Button
+        android:layout_width="139dp"
+        android:layout_height="wrap_content"
+        android:text="@string/FavoritosBTN"
+        android:id="@+id/favoritosBTN"
+        android:layout_gravity="right|top"/>
 
 
 </FrameLayout>

@@ -22,6 +22,10 @@ public class DisplayImages extends AppCompatActivity implements AdapterView.OnIt
 
     Context context;
 
+    Spinner spGallery;
+    TypedArray arraySelec = null;
+    Drawable drawable;
+
     Integer contadorImagenes = 0;
 
 
@@ -31,7 +35,7 @@ public class DisplayImages extends AppCompatActivity implements AdapterView.OnIt
         setContentView(R.layout.activity_display_images);
 
         //Relleno spinner de galerias
-        Spinner spGallery = (Spinner) findViewById(R.id.spinnerGallery);
+        spGallery = (Spinner) findViewById(R.id.spinnerGallery);
 
         //Cargo los arrays de imagenes
         Resources resources = getResources();
@@ -63,24 +67,14 @@ public class DisplayImages extends AppCompatActivity implements AdapterView.OnIt
         switch (parent.getId()) {
             case R.id.spinnerGallery:
 
-                TypedArray arrayBicis = getResources().obtainTypedArray(R.array.bicis);
-                TypedArray arrayPatines = getResources().obtainTypedArray(R.array.patines);
-
                 ImageView imagenGaleria = (ImageView) findViewById(R.id.galleryView);
 
-                String galSelec = parent.getSelectedItem().toString();
-                if (galSelec.equalsIgnoreCase("bicis")){
-                    Drawable drawable = arrayBicis.getDrawable(0);
-                    imagenGaleria.setImageDrawable(drawable);
-                  //  imagenGaleria.setImageResource(arrayBicis.getResourceId(0,0));
-                }else if (galSelec.equalsIgnoreCase("patines")){
-                    imagenGaleria.setImageResource(arrayPatines.getResourceId(0,0));
-                }
-
+                this.setArraySelec();
+                drawable = arraySelec.getDrawable(0);
+                imagenGaleria.setImageDrawable(drawable);
                 break;
         }
     }
-
 
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
@@ -91,17 +85,34 @@ public class DisplayImages extends AppCompatActivity implements AdapterView.OnIt
 
     public void nextImgae(){
 
-//      //  Activity a = (Activity) context;
-//        ImageView imagenBici = (ImageView) findViewById(R.id.bicisView);
-//
-//        if ( contadorImagenes < biciArray.length-1){
-//            contadorImagenes++;
-//
-//        }else{
-//            contadorImagenes = 0;
-//        }
-//
-//        imagenBici.setImageResource(biciArray[contadorImagenes]);
+      //  Activity a = (Activity) context;
+        ImageView imagenGaleria = (ImageView) findViewById(R.id.galleryView);
+
+        if ( contadorImagenes < arraySelec.length()-1){
+            contadorImagenes++;
+
+        }else{
+            contadorImagenes = 0;
+        }
+
+        drawable = arraySelec.getDrawable(contadorImagenes);
+        imagenGaleria.setImageDrawable(drawable);
     }
 
+    public void setArraySelec(){
+        TypedArray arrayBicis = getResources().obtainTypedArray(R.array.bicis);
+        TypedArray arrayPatines = getResources().obtainTypedArray(R.array.patines);
+        int galSelec = spGallery.getSelectedItemPosition();
+
+        switch (galSelec) {
+            case 0:
+                arraySelec = arrayBicis;
+                break;
+
+            case 1:
+                arraySelec = arrayPatines;
+                break;
+
+        }
+    }
 }
