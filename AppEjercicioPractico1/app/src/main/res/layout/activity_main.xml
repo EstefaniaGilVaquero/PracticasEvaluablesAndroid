@@ -32,7 +32,7 @@
         android:layout_alignParentStart="true"
         android:layout_marginTop="46dp"
         android:id="@+id/relativeLayout"
-        android:background="@color/accent_material_dark">
+        android:background="@drawable/edittextbackgnd">
         <EditText
             android:hint="@string/usuarioTF"
             android:layout_width="fill_parent"
@@ -40,7 +40,8 @@
             android:layout_toLeftOf="@+id/UserButton"
             android:background="@null"
             android:layout_centerVertical="true"
-            android:id="@+id/usuarioTF"/>
+            android:id="@+id/usuarioTF"
+            android:paddingLeft="10dp"/>
         <ImageButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -55,17 +56,19 @@
         style="@android:style/Widget.EditText"
         android:layout_below="@+id/relativeLayout"
         android:layout_centerHorizontal="true"
-        android:background="@color/accent_material_dark"
+        android:background="@drawable/edittextbackgnd"
         android:id="@+id/relativeLayout2">
         <EditText
             android:hint="@string/contrasenaTF"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_toLeftOf="@+id/PasswordButton"
             android:background="@null"
-            android:layout_centerVertical="true"
             android:inputType="number"
-            android:id="@+id/passwordTF"/>
+            android:id="@+id/passwordTF"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@+id/PasswordButton"
+            android:layout_toStartOf="@+id/PasswordButton"
+            android:paddingLeft="10dp"/>
         <ImageButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -75,29 +78,28 @@
             android:background="@null"/>
     </RelativeLayout>
 
-
-
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/OK_BTN"
         android:id="@+id/loginBTN"
-        android:background="@drawable/btn_circle_pressed"
-        android:textSize="30dp"
-        android:layout_alignTop="@+id/borrarBTN"
-        android:layout_toRightOf="@+id/loginLBL"
-        android:layout_toEndOf="@+id/loginLBL"/>
+        android:layout_alignParentBottom="true"
+        android:layout_alignRight="@+id/relativeLayout2"
+        android:layout_alignEnd="@+id/relativeLayout2"
+        android:layout_alignParentRight="true"
+        android:background="@drawable/boton1"
+        android:textSize="20dp"/>
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/BORRAR_BTN"
+        android:layout_alignBottom="@+id/loginBTN"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
         android:id="@+id/borrarBTN"
-        android:background="@drawable/btn_circle_pressed"
-        android:textSize="20dp"
-        android:layout_below="@+id/relativeLayout2"
-        android:layout_toLeftOf="@+id/loginLBL"
-        android:layout_toStartOf="@+id/loginLBL"
-        android:layout_marginTop="82dp"/>
+        android:background="@drawable/boton1"
+        android:textSize="20dp"/>
+
 
 </RelativeLayout>

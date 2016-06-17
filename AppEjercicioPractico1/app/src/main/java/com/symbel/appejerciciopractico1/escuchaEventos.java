@@ -76,6 +76,14 @@ public class escuchaEventos implements View.OnClickListener{
 
                 break;
 
+            case R.id.favoritosBTN:
+                Log.d(getClass().getCanonicalName(), "Ha pulsado boton BORRAR");
+                Intent intent2 = new Intent(context, FavoritosActivity.class);
+                Activity a = (Activity) context;
+                a.startActivity(intent2);
+
+                break;
+
         }
 
 

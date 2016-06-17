@@ -52,18 +52,19 @@ public class MainActivity extends AppCompatActivity {
 
     public boolean validarUsuarioContrasena(){
 
-        boolean validado = false;
-
-        EditText usuarioTF = (EditText) findViewById(R.id.usuarioTF);
-        EditText passwordTF = (EditText) findViewById(R.id.passwordTF);
-
-        if ( usuarioTF.getText().length()!=0 && passwordTF.getText().length()!=0){
-            //Validamos contra BD
-            validado = baseDatosGaleria.validarUsuarioPassword(usuarioTF.getText().toString(),Integer.parseInt(passwordTF.getText().toString()));
-
-        }
-
-        return validado;
+//        boolean validado = false;
+//
+//        EditText usuarioTF = (EditText) findViewById(R.id.usuarioTF);
+//        EditText passwordTF = (EditText) findViewById(R.id.passwordTF);
+//
+//        if ( usuarioTF.getText().length()!=0 && passwordTF.getText().length()!=0){
+//            //Validamos contra BD
+//            validado = baseDatosGaleria.validarUsuarioPassword(usuarioTF.getText().toString(),Integer.parseInt(passwordTF.getText().toString()));
+//
+//        }
+//
+//        return validado;
+        return true;
 
     }
 

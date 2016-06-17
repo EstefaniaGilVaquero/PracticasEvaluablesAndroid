@@ -17,34 +17,37 @@
         android:layout_gravity="center"/>
 
     <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="100dp"
+        android:layout_height="40dp"
         android:text="@string/botonSI"
         android:id="@+id/siBTN"
         android:layout_gravity="left|bottom"
-        android:background="@drawable/btn_circle"/>
+        android:background="@drawable/boton1"
+        android:textSize="20dp"/>
 
     <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="100dp"
+        android:layout_height="40dp"
         android:text="@string/botonNO"
         android:id="@+id/noBTN"
         android:layout_gravity="right|bottom"
-        android:background="@drawable/btn_circle"/>
-
-    <Spinner
-        android:layout_width="148dp"
-        android:layout_height="wrap_content"
-        android:id="@+id/spinnerGallery"
-        android:drawSelectorOnTop="true"
-        android:layout_gravity="left|top"/>
+        android:background="@drawable/boton1"
+        android:textSize="20dp"/>
 
     <Button
-        android:layout_width="139dp"
-        android:layout_height="wrap_content"
-        android:text="@string/FavoritosBTN"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
         android:id="@+id/favoritosBTN"
-        android:layout_gravity="right|top"/>
+        android:layout_gravity="center_horizontal|bottom"
+        android:background="@android:drawable/btn_star_big_on"/>
+
+    <Spinner
+        android:layout_width="278dp"
+        android:layout_height="40dp"
+        android:id="@+id/spinnerGallery"
+        android:drawSelectorOnTop="true"
+        android:layout_gravity="center_horizontal|top"
+        android:background="@drawable/spinner"/>
 
 
 </FrameLayout>

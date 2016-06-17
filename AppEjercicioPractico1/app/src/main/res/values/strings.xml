@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">AppEjercicioPractico1</string>
     <string name="loginLBL">Login!</string>
-    <string name="OK_BTN">OK</string>
+    <string name="OK_BTN">LOGIN</string>
     <string name="BORRAR_BTN">BORRAR</string>
     <string name="botonSI">SI</string>
     <string name="botonNO">NO</string>
