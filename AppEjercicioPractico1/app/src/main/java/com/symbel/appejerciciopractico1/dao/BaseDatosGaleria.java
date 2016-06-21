@@ -11,8 +11,7 @@ import com.symbel.appejerciciopractico1.dto.Usuarios;
 public class BaseDatosGaleria extends SQLiteOpenHelper {
 
     private final String sqlCreacionTablaUsuarios = "CREATE TABLE USUARIOS (ID INTEGER PRIMARY KEY, USUARIO TEXT, PASSWORD INTEGER)";
-    //TODO: Tabla de favoritos
-    // private final String sqlCreacionTablaFavoritos = "CREATE TABLE FAVORITOS (idUsuario INTEGER PRIMARY KEY, idImage TEXT, idpersona INTEGER, FOREIGN KEY (idpersona) REFERENCES PERSONA (id))";
+    private final String sqlCreacionTablaFavoritos = "CREATE TABLE FAVORITOS (USUARIO STRING PRIMARY KEY, IMAGE STRING PRIMARY KEY, FOREIGN KEY (USUARIO) REFERENCES USUARIOS (ID))";
 
     public BaseDatosGaleria(Context contexto, String nombre, SQLiteDatabase.CursorFactory factory, int version) {
         super(contexto, nombre, factory, version); //el método padre, llamará a Oncreate o OnUpgrade, segn corresponda
@@ -67,6 +66,13 @@ public class BaseDatosGaleria extends SQLiteOpenHelper {
         return usuarioOK;
     }
 
+    public void setLikeDislike(String usuario, String imagen){
+        String consulta = "INSERT INTO FAVORITOS ( USUARIO, IMAGEN ) VALUES( '"+usuario+"',"+imagen ;
+        SQLiteDatabase basedatos = this.getReadableDatabase();
+        Cursor cursor = basedatos.rawQuery(consulta, null);
+
+    }
+
     public boolean tableIsEmpty(String tableName){
 
         boolean tablaVacia = false;
@@ -86,4 +92,5 @@ public class BaseDatosGaleria extends SQLiteOpenHelper {
         return tablaVacia;
 
     }
+
 }

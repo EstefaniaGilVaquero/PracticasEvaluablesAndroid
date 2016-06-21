@@ -17,6 +17,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 
+import java.lang.reflect.Array;
 import java.util.HashMap;
 
 
@@ -27,15 +28,12 @@ public class DisplayImages extends AppCompatActivity implements AdapterView.OnIt
     Spinner spGallery;
 
     //el array seleccionado en cada momento
-    TypedArray arraySelec = null;
+    static TypedArray arraySelec = null;
 
     Drawable drawable;
 
     //indice para recorrer el array de imagenes
-    Integer contadorImagenes = 0;
-
-    //Intent que laza esta actividad
-    Intent intent = getIntent();
+    static Integer contadorImagenes = 0;
 
 
 
@@ -66,8 +64,8 @@ public class DisplayImages extends AppCompatActivity implements AdapterView.OnIt
         botonFAV.setOnClickListener(objetoEscuchador);
 
         //Pongo el nombre del usuario en el boton de favoritos
-//        String usuario = intent.getStringExtra("Usuario");
- //       botonFAV.setText(usuario);
+        String usuario = getIntent().getStringExtra("Usuario");
+        botonFAV.setText(usuario);
 
 
     }
@@ -136,4 +134,14 @@ public class DisplayImages extends AppCompatActivity implements AdapterView.OnIt
 
         }
     }
+
+//    public TypedArray getArraySelec(){
+//        return arraySelec;
+//
+//    }
+//
+//    public int getContadorImagenes(){
+//        return contadorImagenes;
+//
+//    }
 }

@@ -1,11 +1,10 @@
 package com.symbel.appejerciciopractico1;
 
-import android.support.v7.app.AppCompatActivity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Context;
 import android.content.res.TypedArray;
-import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -16,6 +15,8 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 public class FavoritosActivity extends Activity {
+
+
 
     //the images to display
     Integer[] imageIDs = {

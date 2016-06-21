@@ -5,10 +5,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Spinner;
+
 
 import com.symbel.appejerciciopractico1.dao.BaseDatosGaleria;
 import com.symbel.appejerciciopractico1.dto.Usuarios;
@@ -52,19 +51,18 @@ public class MainActivity extends AppCompatActivity {
 
     public boolean validarUsuarioContrasena(){
 
-//        boolean validado = false;
-//
-//        EditText usuarioTF = (EditText) findViewById(R.id.usuarioTF);
-//        EditText passwordTF = (EditText) findViewById(R.id.passwordTF);
-//
-//        if ( usuarioTF.getText().length()!=0 && passwordTF.getText().length()!=0){
-//            //Validamos contra BD
-//            validado = baseDatosGaleria.validarUsuarioPassword(usuarioTF.getText().toString(),Integer.parseInt(passwordTF.getText().toString()));
-//
-//        }
-//
-//        return validado;
-        return true;
+        boolean validado = false;
+
+        EditText usuarioTF = (EditText) findViewById(R.id.usuarioTF);
+        EditText passwordTF = (EditText) findViewById(R.id.passwordTF);
+
+        if ( usuarioTF.getText().length()!=0 && passwordTF.getText().length()!=0){
+            //Validamos contra BD
+            validado = baseDatosGaleria.validarUsuarioPassword(usuarioTF.getText().toString(),Integer.parseInt(passwordTF.getText().toString()));
+
+        }
+
+        return validado;
 
     }
 
