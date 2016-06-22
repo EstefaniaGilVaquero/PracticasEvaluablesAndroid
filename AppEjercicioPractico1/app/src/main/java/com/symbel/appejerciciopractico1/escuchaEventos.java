@@ -7,9 +7,11 @@ import android.content.res.TypedArray;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.symbel.appejerciciopractico1.dao.BaseDatosGaleria;
+import com.symbel.appejerciciopractico1.dao.OperacionesBaseDatos;
 
 import java.lang.reflect.Array;
 
@@ -21,15 +23,15 @@ public class escuchaEventos implements View.OnClickListener{
     Context context;
     DisplayImages mDisplayImages;
     MainActivity mMainActivity;
-    BaseDatosGaleria mBaseDatosGaleria = new BaseDatosGaleria(context, "MiDB", null, 1);
+    Activity a;
+    //creo el objeto de la base de datos
+    OperacionesBaseDatos datos;
+
 
 
     public escuchaEventos(Context context){this.context = context;}
 
-
-
-
-    @Override
+ @Override
     public void onClick(View vista_seleccioanda)
     {
         //obtengo el Id de la vista
@@ -50,7 +52,6 @@ public class escuchaEventos implements View.OnClickListener{
                     Intent intent1 = new Intent(context, DisplayImages.class);
                     Activity a = (Activity) context;
                     //Enviamos el usuario al la siguiente actividad
-                    //TODO: Enviar usuario en el intent, no funciona
                     intent1.putExtra("Usuario", mMainActivity.getUsuario());
                     a.startActivity(intent1);
                 //Si NO ha introducido el usuario o la contrasena correctos
@@ -63,23 +64,43 @@ public class escuchaEventos implements View.OnClickListener{
 
             case R.id.siBTN:
                 Log.d(getClass().getCanonicalName(), "Ha pulsado boton SI");
-                //TODO: Guardar en BD la respuesta
+                datos = OperacionesBaseDatos.obtenerInstancia(this.context);
 
-             //   String imagen = mDisplayImages.arraySelec.getDrawable(mDisplayImages.contadorImagenes()).toString();
 
-               mBaseDatosGaleria.setLikeDislike(mMainActivity.getUsuario(), "imagen1");
+        //        mMainActivity = (MainActivity) this.context;
+        //        Log.d("usuario", "El usuario desde boton si: " +);
 
-                //Cargar siguiente imagen
+                //Toast me gusta
+                Toast.makeText(this.context,"ME GUSTA", Toast.LENGTH_SHORT).show();
+
+               //Cargar siguiente imagen
                 mDisplayImages = (DisplayImages) this.context;
                 mDisplayImages.nextImgae();
+
+                //Borro usuario imagen en caso de que exista en tabla favoritos
+                //datos.deleteUsuarioImagen(mMainActivity.getUsuario(), mDisplayImages.idImagen);
+                datos.deleteUsuarioImagen("Estefi", mDisplayImages.idImagen);
+                //Inserto id de imagen en la bd
+                //datos.insertarFavorito(mMainActivity.getUsuario(), mDisplayImages.idImagen);
+                datos.insertarFavorito("Estefi", mDisplayImages.idImagen);
+
+                //Logeo contenido tabla favoritos
+                datos.mostrarContenidoTabla("FAVORITOS");
 
                 break;
 
             case R.id.noBTN:
                 Log.d(getClass().getCanonicalName(), "Ha pulsado boton NO");
-                //TODO: Guardar en BD la respuesta
-                mDisplayImages = (DisplayImages) this.context;
+                //Borro usuario imagen en caso de que exista en tabla favoritos
+                datos.deleteUsuarioImagen("Estefi", mDisplayImages.idImagen);
+
+                //Toast me gusta
+                Toast.makeText(this.context,"NO ME GUSTA", Toast.LENGTH_SHORT).show();
+
+                mDisplayImages = (DisplayImages) context;
                 mDisplayImages.nextImgae();
+
+                datos.mostrarContenidoTabla("FAVORITOS");
                 break;
 
             case R.id.borrarBTN:
@@ -90,10 +111,19 @@ public class escuchaEventos implements View.OnClickListener{
                 break;
 
             case R.id.favoritosBTN:
-                Log.d(getClass().getCanonicalName(), "Ha pulsado boton BORRAR");
+                Log.d(getClass().getCanonicalName(), "Ha pulsado boton favoritos");
                 Intent intent2 = new Intent(context, FavoritosActivity.class);
-                Activity a = (Activity) context;
+                a = (Activity) context;
+               // intent2.putExtra("Usuario", mMainActivity.getUsuario());
                 a.startActivity(intent2);
+
+                break;
+
+            case R.id.volverBTN:
+                Log.d(getClass().getCanonicalName(), "Ha pulsado boton volver");
+                a = (Activity) context;
+                a.finish();
+
 
                 break;
 

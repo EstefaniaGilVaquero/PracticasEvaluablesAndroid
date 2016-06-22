@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -10,8 +10,7 @@
     <Gallery
         android:id="@+id/gallery1"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        />
+        android:layout_height="wrap_content" />
 
     <ImageView
         android:id="@+id/image1"
@@ -21,6 +20,30 @@
         android:paddingBottom="5dp"
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
-        android:src="@drawable/bici_carretera"
+        android:src="@drawable/nofavs"
         />
-    </LinearLayout>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/VolverBTN"
+        android:id="@+id/volverBTN"
+        android:layout_gravity="center_horizontal"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:layout_marginBottom="@dimen/activity_vertical_margin"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/boton1"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="New Text"
+        android:id="@+id/nombreET"
+        android:layout_alignTop="@+id/volverBTN"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginRight="58dp"
+        android:layout_marginEnd="58dp"
+        android:layout_alignBottom="@+id/volverBTN"/>
+</RelativeLayout>

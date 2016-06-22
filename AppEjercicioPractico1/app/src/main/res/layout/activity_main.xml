@@ -21,7 +21,8 @@
         android:layout_marginTop="46dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:background="@color/accent_material_dark"/>
+        android:textColor="#ffffff"
+        android:textStyle="bold"/>
 
     <RelativeLayout
         android:layout_width="wrap_content"
@@ -40,6 +41,7 @@
             android:layout_toLeftOf="@+id/UserButton"
             android:background="@null"
             android:layout_centerVertical="true"
+            android:singleLine="true"
             android:id="@+id/usuarioTF"
             android:paddingLeft="10dp"/>
         <ImageButton

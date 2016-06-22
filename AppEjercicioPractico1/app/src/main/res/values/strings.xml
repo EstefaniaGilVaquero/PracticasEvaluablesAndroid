@@ -8,6 +8,7 @@
     <string name="usuarioTF">Usuario</string>
     <string name="contrasenaTF">Contraseña</string>
     <string name="FavoritosBTN">Favoritos</string>
+    <string name="VolverBTN">Volver</string>
 
 
 </resources>

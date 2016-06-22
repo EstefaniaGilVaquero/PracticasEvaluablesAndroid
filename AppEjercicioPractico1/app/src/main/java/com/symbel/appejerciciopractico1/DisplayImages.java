@@ -30,10 +30,15 @@ public class DisplayImages extends AppCompatActivity implements AdapterView.OnIt
     //el array seleccionado en cada momento
     static TypedArray arraySelec = null;
 
+    //id de la imagen mostrada en imageView
+    static int idImagen;
+    static String usuario;
+
     Drawable drawable;
 
     //indice para recorrer el array de imagenes
     static Integer contadorImagenes = 0;
+
 
 
 
@@ -64,7 +69,7 @@ public class DisplayImages extends AppCompatActivity implements AdapterView.OnIt
         botonFAV.setOnClickListener(objetoEscuchador);
 
         //Pongo el nombre del usuario en el boton de favoritos
-        String usuario = getIntent().getStringExtra("Usuario");
+        usuario = getIntent().getStringExtra("Usuario");
         botonFAV.setText(usuario);
 
 
@@ -101,7 +106,18 @@ public class DisplayImages extends AppCompatActivity implements AdapterView.OnIt
     public void nextImgae(){
 
       //  Activity a = (Activity) context;
+
         ImageView imagenGaleria = (ImageView) findViewById(R.id.galleryView);
+
+        //TODO: Ojo a la chapuza del siglo
+        //Guardo el id de la imagen actual
+        String nombreFoto = arraySelec.getString(contadorImagenes);
+        nombreFoto = nombreFoto.replaceAll("res/drawable/", "");
+        nombreFoto = nombreFoto.substring(0,nombreFoto.length()-4);
+        Log.d("imagen", "nombre de la imagen: " + nombreFoto);
+        idImagen = getResources().getIdentifier(nombreFoto , "drawable", getPackageName());
+        Log.d("imagen", "id de la imagen: " + idImagen);
+
 
         if ( contadorImagenes < arraySelec.length()-1){
             contadorImagenes++;
@@ -110,8 +126,12 @@ public class DisplayImages extends AppCompatActivity implements AdapterView.OnIt
             contadorImagenes = 0;
         }
 
+        //TODO:
+
         drawable = arraySelec.getDrawable(contadorImagenes);
         imagenGaleria.setImageDrawable(drawable);
+
+
     }
 
     public void setArraySelec(){
@@ -135,13 +155,4 @@ public class DisplayImages extends AppCompatActivity implements AdapterView.OnIt
         }
     }
 
-//    public TypedArray getArraySelec(){
-//        return arraySelec;
-//
-//    }
-//
-//    public int getContadorImagenes(){
-//        return contadorImagenes;
-//
-//    }
 }
