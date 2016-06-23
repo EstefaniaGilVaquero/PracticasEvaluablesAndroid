@@ -63,8 +63,7 @@ public class DisplayImages extends AppCompatActivity implements AdapterView.OnIt
         botonFAV.setOnClickListener(objetoEscuchador);
 
         //Pongo el nombre del usuario en el boton de favoritos
-        usuario = getIntent().getStringExtra("Usuario");
-        botonFAV.setText(usuario);
+        botonFAV.setText(UsuarioActivo.getUsuarioactivo());
 
 
     }

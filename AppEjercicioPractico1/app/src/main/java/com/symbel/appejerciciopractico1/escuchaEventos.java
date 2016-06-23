@@ -23,13 +23,6 @@ import java.lang.reflect.Array;
 public class EscuchaEventos implements View.OnClickListener{
 
     Context context;
-    DisplayImages mDisplayImages;
-    MainActivity mMainActivity;
-    Activity a;
-    //creo el objeto de la base de datos
-    OperacionesBaseDatos datos;
-
-
 
     public EscuchaEventos(Context context){this.context = context;}
 
@@ -37,7 +30,10 @@ public class EscuchaEventos implements View.OnClickListener{
     public void onClick(View vista_seleccioanda)
     {
 
+        OperacionesBaseDatos datos;
         Favoritos favorito;
+        MainActivity mMainActivity;
+        DisplayImages mDisplayImages = null;
 
         //obtengo el Id de la vista
         int id_vista_seleccionada = vista_seleccioanda.getId();
@@ -49,16 +45,17 @@ public class EscuchaEventos implements View.OnClickListener{
             case R.id.loginBTN:
                 Log.d(getClass().getCanonicalName(), "Ha pulsado boton OK de login");
                 mMainActivity = (MainActivity) this.context;
+                EditText caja_usuario = (EditText) mMainActivity.findViewById(R.id.usuarioTF);
+                String usuario = caja_usuario.getText().toString();
+                UsuarioActivo.setUsuarioActivo(usuario);
 
                 //Validar que se ha introducido usuario y contrasena registrados
                 //Si ha introducido usuario y contrasena
                 if(mMainActivity.validarUsuarioContrasena()){
                     //Intent para llamar a la actividad DisplayImages
-                    Intent intent1 = new Intent(context, DisplayImages.class);
+                    Intent intentDisplay = new Intent(context, DisplayImages.class);
                     Activity a = (Activity) context;
-                    //Enviamos el usuario al la siguiente actividad
-                   // intent1.putExtra("Usuario", mMainActivity.getUsuario());
-                    a.startActivity(intent1);
+                    a.startActivity(intentDisplay);
                 //Si NO ha introducido el usuario o la contrasena correctos
                 }else{
                     //Mensaje "Usuario o Password incorrecto!!"
@@ -70,15 +67,15 @@ public class EscuchaEventos implements View.OnClickListener{
             case R.id.siBTN:
                 Log.d(getClass().getCanonicalName(), "Ha pulsado boton SI");
                 datos = OperacionesBaseDatos.obtenerInstancia(this.context);
+                mDisplayImages = (DisplayImages) this.context;
 
                 //Toast me gusta
                 Toast.makeText(this.context,"ME GUSTA", Toast.LENGTH_SHORT).show();
 
-               //Cargar siguiente imagen
-                mDisplayImages = (DisplayImages) this.context;
+                //Cargar siguiente imagen
                 mDisplayImages.nextImgae();
 
-                favorito = new Favoritos("Estefi",mDisplayImages.idImagen);
+                favorito = new Favoritos(UsuarioActivo.getUsuarioactivo(),mDisplayImages.idImagen);
                 //Borro usuario imagen en caso de que exista en tabla favoritos
                 datos.borrarFavorito(favorito);
                 //Inserto id de imagen en la bd
@@ -91,14 +88,16 @@ public class EscuchaEventos implements View.OnClickListener{
 
             case R.id.noBTN:
                 Log.d(getClass().getCanonicalName(), "Ha pulsado boton NO");
+                datos = OperacionesBaseDatos.obtenerInstancia(this.context);
+                mDisplayImages = (DisplayImages) context;
                 //Borro usuario imagen en caso de que exista en tabla favoritos
-                favorito = new Favoritos("Estefi",mDisplayImages.idImagen);
+                favorito = new Favoritos(UsuarioActivo.getUsuarioactivo(),mDisplayImages.idImagen);
                 datos.borrarFavorito(favorito);
 
                 //Toast me gusta
                 Toast.makeText(this.context,"NO ME GUSTA", Toast.LENGTH_SHORT).show();
 
-                mDisplayImages = (DisplayImages) context;
+
                 mDisplayImages.nextImgae();
 
                 datos.mostrarContenidoTabla("FAVORITOS");
@@ -114,8 +113,7 @@ public class EscuchaEventos implements View.OnClickListener{
             case R.id.favoritosBTN:
                 Log.d(getClass().getCanonicalName(), "Ha pulsado boton favoritos");
                 Intent intent2 = new Intent(context, FavoritosActivity.class);
-                a = (Activity) context;
-               // intent2.putExtra("Usuario", mMainActivity.getUsuario());
+                Activity a = (Activity) context;
                 a.startActivity(intent2);
 
                 break;

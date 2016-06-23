@@ -64,7 +64,7 @@ public final class OperacionesBaseDatos {
         Cursor cursor = db.rawQuery(consulta, null);
 
         //Si ha devuelto registros es que el usuario esta dado de alta.
-        if( cursor != null || cursor.getCount() <=0){
+        if( cursor.moveToFirst() ){
             cursor.moveToFirst();
             if (cursor.getInt(0) >= 1){
                 usuarioOK = true;

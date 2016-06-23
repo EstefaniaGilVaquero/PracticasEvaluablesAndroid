@@ -3,7 +3,6 @@ package com.symbel.appejerciciopractico1;
 import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -54,9 +53,10 @@ public class MainActivity extends AppCompatActivity {
 
         EditText usuarioTF = (EditText) findViewById(R.id.usuarioTF);
         EditText passwordTF = (EditText) findViewById(R.id.passwordTF);
-        Usuarios usuario = new Usuarios(usuarioTF.getText().toString(), Integer.parseInt(passwordTF.getText().toString()));
+
 
         if ( usuarioTF.getText().length()!=0 && passwordTF.getText().length()!=0){
+            Usuarios usuario = new Usuarios(usuarioTF.getText().toString(), Integer.parseInt(passwordTF.getText().toString()));
             //Validamos contra BD
             validado = datos.validarUsuarioPassword(usuario);
         }
