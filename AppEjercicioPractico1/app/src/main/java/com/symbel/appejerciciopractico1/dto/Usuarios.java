@@ -5,35 +5,20 @@ package com.symbel.appejerciciopractico1.dto;
  */
 public class Usuarios {
 
-    private int id;
     private String usuario;
     private int password;
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
+    public Usuarios (String usuario, int password)
+    {
+        this.usuario = usuario;
+        this.password = password;
     }
 
     public String getUsuario() {
         return usuario;
     }
 
-    public void setUsuario(String modelo) {
-        this.usuario = modelo;
-    }
-
-    public Usuarios (int id, String usuario, int password)
-    {
-        this.id = id;
-        this.usuario = usuario;
-        this.password = password;
-    }
-
-    public Usuarios (String usuario)
-    {
+    public void setUsuario(String usuario) {
         this.usuario = usuario;
     }
 
@@ -44,7 +29,4 @@ public class Usuarios {
     public void setPassword(int password) {
         this.password = password;
     }
-
-
-
 }

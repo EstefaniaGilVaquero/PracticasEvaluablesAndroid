@@ -19,8 +19,6 @@ public class MainActivity extends AppCompatActivity {
     //creo el objeto de la base de datos
     OperacionesBaseDatos datos;
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,13 +26,12 @@ public class MainActivity extends AppCompatActivity {
 
         datos = OperacionesBaseDatos.obtenerInstancia(getApplicationContext());
 
-
         //inserto los usuarios si la tabla está vacia
         if(datos.tableIsEmpty("USUARIOS")){
 
-            Usuarios usuario1 = new Usuarios(1, "Estefi", 123);
-            Usuarios usuario2 = new Usuarios(2, "Merche", 1234);
-            Usuarios usuario3 = new Usuarios(3, "Henar", 12345);
+            Usuarios usuario1 = new Usuarios("Estefi", 123);
+            Usuarios usuario2 = new Usuarios("Merche", 1234);
+            Usuarios usuario3 = new Usuarios("Henar", 12345);
 
             datos.insertarUsuario(usuario1);
             datos.insertarUsuario(usuario2);
@@ -42,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
         //Listener
-        View.OnClickListener objetoEscuchador = new escuchaEventos(this);
+        View.OnClickListener objetoEscuchador = new EscuchaEventos(this);
 
         //CAPTURO EL BOTÓN Y LE ASOCIO EL LISTENER
         Button botonOK = (Button)findViewById(R.id.loginBTN);
@@ -57,36 +54,22 @@ public class MainActivity extends AppCompatActivity {
 
         EditText usuarioTF = (EditText) findViewById(R.id.usuarioTF);
         EditText passwordTF = (EditText) findViewById(R.id.passwordTF);
+        Usuarios usuario = new Usuarios(usuarioTF.getText().toString(), Integer.parseInt(passwordTF.getText().toString()));
 
         if ( usuarioTF.getText().length()!=0 && passwordTF.getText().length()!=0){
             //Validamos contra BD
-            validado = datos.validarUsuarioPassword(usuarioTF.getText().toString(),Integer.parseInt(passwordTF.getText().toString()));
-
+            validado = datos.validarUsuarioPassword(usuario);
         }
 
         return validado;
-
     }
 
     public void borrarFormulario(){
-
         //Resetea el formulario a vacio
         EditText usuarioTF = (EditText) findViewById(R.id.usuarioTF);
         EditText passwordTF = (EditText) findViewById(R.id.passwordTF);
 
         usuarioTF.setText("");
         passwordTF.setText("");
-
     }
-
-    //TODO: PREGUNTAR A VAL DIFERENCIA ENTRE PUTEXTRA Y ESTOS METODOS PARA PASAR INFOR DE UNA ACTIVIDAD A OTRA
-
-    public String getUsuario(){
-        EditText usuarioTF = (EditText) findViewById(R.id.usuarioTF);
-        Log.d(getClass().getCanonicalName(), "Usuario: " + usuarioTF.getText().toString());
-        return usuarioTF.getText().toString();
-    }
-
-
-
 }

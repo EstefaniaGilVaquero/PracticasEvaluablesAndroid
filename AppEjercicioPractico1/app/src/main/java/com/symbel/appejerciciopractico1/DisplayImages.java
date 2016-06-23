@@ -1,8 +1,6 @@
 package com.symbel.appejerciciopractico1;
 
 import android.content.Context;
-import android.content.Intent;
-import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
 import android.support.v7.app.AppCompatActivity;
@@ -13,12 +11,8 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
-
-import java.lang.reflect.Array;
-import java.util.HashMap;
 
 
 public class DisplayImages extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
@@ -58,7 +52,7 @@ public class DisplayImages extends AppCompatActivity implements AdapterView.OnIt
         spGallery.setOnItemSelectedListener(this);
 
         //Listener
-        View.OnClickListener objetoEscuchador = new escuchaEventos(this);
+        View.OnClickListener objetoEscuchador = new EscuchaEventos(this);
 
         //CAPTURO EL BOTÓN Y LE ASOCIO EL LISTENER
         Button botonSI = (Button)findViewById(R.id.siBTN);
@@ -118,7 +112,6 @@ public class DisplayImages extends AppCompatActivity implements AdapterView.OnIt
         idImagen = getResources().getIdentifier(nombreFoto , "drawable", getPackageName());
         Log.d("imagen", "id de la imagen: " + idImagen);
 
-
         if ( contadorImagenes < arraySelec.length()-1){
             contadorImagenes++;
 
@@ -126,12 +119,8 @@ public class DisplayImages extends AppCompatActivity implements AdapterView.OnIt
             contadorImagenes = 0;
         }
 
-        //TODO:
-
         drawable = arraySelec.getDrawable(contadorImagenes);
         imagenGaleria.setImageDrawable(drawable);
-
-
     }
 
     public void setArraySelec(){

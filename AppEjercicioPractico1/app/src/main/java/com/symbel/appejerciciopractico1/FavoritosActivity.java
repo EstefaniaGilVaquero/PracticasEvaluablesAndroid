@@ -1,7 +1,5 @@
 package com.symbel.appejerciciopractico1;
 
-import android.content.Intent;
-import android.database.Cursor;
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Context;
@@ -14,7 +12,6 @@ import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.Gallery;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import com.symbel.appejerciciopractico1.dao.OperacionesBaseDatos;
 
@@ -39,7 +36,7 @@ public class FavoritosActivity extends Activity {
 //        nombreUsuario.setText(usuario);
 
         //Listener
-        View.OnClickListener objetoEscuchador = new escuchaEventos(this);
+        View.OnClickListener objetoEscuchador = new EscuchaEventos(this);
 
         //CAPTURO EL BOTÓN Y LE ASOCIO EL LISTENER
         Button buttonVOLVER = (Button)findViewById(R.id.volverBTN);

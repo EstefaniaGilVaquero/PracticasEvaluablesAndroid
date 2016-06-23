@@ -12,13 +12,15 @@ import android.widget.Toast;
 
 import com.symbel.appejerciciopractico1.dao.BaseDatosGaleria;
 import com.symbel.appejerciciopractico1.dao.OperacionesBaseDatos;
+import com.symbel.appejerciciopractico1.dto.Favoritos;
+import com.symbel.appejerciciopractico1.dto.Usuarios;
 
 import java.lang.reflect.Array;
 
 /**
  * Created by estefi on 09/06/2016.
  */
-public class escuchaEventos implements View.OnClickListener{
+public class EscuchaEventos implements View.OnClickListener{
 
     Context context;
     DisplayImages mDisplayImages;
@@ -29,11 +31,14 @@ public class escuchaEventos implements View.OnClickListener{
 
 
 
-    public escuchaEventos(Context context){this.context = context;}
+    public EscuchaEventos(Context context){this.context = context;}
 
  @Override
     public void onClick(View vista_seleccioanda)
     {
+
+        Favoritos favorito;
+
         //obtengo el Id de la vista
         int id_vista_seleccionada = vista_seleccioanda.getId();
 
@@ -52,7 +57,7 @@ public class escuchaEventos implements View.OnClickListener{
                     Intent intent1 = new Intent(context, DisplayImages.class);
                     Activity a = (Activity) context;
                     //Enviamos el usuario al la siguiente actividad
-                    intent1.putExtra("Usuario", mMainActivity.getUsuario());
+                   // intent1.putExtra("Usuario", mMainActivity.getUsuario());
                     a.startActivity(intent1);
                 //Si NO ha introducido el usuario o la contrasena correctos
                 }else{
@@ -66,10 +71,6 @@ public class escuchaEventos implements View.OnClickListener{
                 Log.d(getClass().getCanonicalName(), "Ha pulsado boton SI");
                 datos = OperacionesBaseDatos.obtenerInstancia(this.context);
 
-
-        //        mMainActivity = (MainActivity) this.context;
-        //        Log.d("usuario", "El usuario desde boton si: " +);
-
                 //Toast me gusta
                 Toast.makeText(this.context,"ME GUSTA", Toast.LENGTH_SHORT).show();
 
@@ -77,12 +78,11 @@ public class escuchaEventos implements View.OnClickListener{
                 mDisplayImages = (DisplayImages) this.context;
                 mDisplayImages.nextImgae();
 
+                favorito = new Favoritos("Estefi",mDisplayImages.idImagen);
                 //Borro usuario imagen en caso de que exista en tabla favoritos
-                //datos.deleteUsuarioImagen(mMainActivity.getUsuario(), mDisplayImages.idImagen);
-                datos.deleteUsuarioImagen("Estefi", mDisplayImages.idImagen);
+                datos.borrarFavorito(favorito);
                 //Inserto id de imagen en la bd
-                //datos.insertarFavorito(mMainActivity.getUsuario(), mDisplayImages.idImagen);
-                datos.insertarFavorito("Estefi", mDisplayImages.idImagen);
+                datos.insertarFavorito(favorito);
 
                 //Logeo contenido tabla favoritos
                 datos.mostrarContenidoTabla("FAVORITOS");
@@ -92,7 +92,8 @@ public class escuchaEventos implements View.OnClickListener{
             case R.id.noBTN:
                 Log.d(getClass().getCanonicalName(), "Ha pulsado boton NO");
                 //Borro usuario imagen en caso de que exista en tabla favoritos
-                datos.deleteUsuarioImagen("Estefi", mDisplayImages.idImagen);
+                favorito = new Favoritos("Estefi",mDisplayImages.idImagen);
+                datos.borrarFavorito(favorito);
 
                 //Toast me gusta
                 Toast.makeText(this.context,"NO ME GUSTA", Toast.LENGTH_SHORT).show();
@@ -124,11 +125,7 @@ public class escuchaEventos implements View.OnClickListener{
                 a = (Activity) context;
                 a.finish();
 
-
                 break;
-
         }
-
-
     }
 }

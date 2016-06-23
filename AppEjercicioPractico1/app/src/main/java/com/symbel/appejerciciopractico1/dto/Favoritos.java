@@ -5,16 +5,21 @@ package com.symbel.appejerciciopractico1.dto;
  */
 public class Favoritos {
 
-    private int idUsuario;
+    private String usuario;
     private int idImage;
-    private String decision;
 
-    public int getIdUsuario() {
-        return idUsuario;
+    public Favoritos (String usuario, int idImage)
+    {
+        this.usuario = usuario;
+        this.idImage = idImage;
     }
 
-    public void setIdUsuario(int idUsuario) {
-        this.idUsuario = idUsuario;
+    public String getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(String usuario) {
+        this.usuario = usuario;
     }
 
     public int getIdImage() {
@@ -24,17 +29,4 @@ public class Favoritos {
     public void setIdImage(int idImage) {
         this.idImage = idImage;
     }
-
-    public String getDecision() {
-        return decision;
-    }
-
-    public void setDecision(String decision) {
-        this.decision = decision;
-    }
-
-
-
-
-
 }

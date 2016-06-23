@@ -22,6 +22,7 @@ public final class OperacionesBaseDatos {
 
     private static BaseDatosGaleria baseDatos;
 
+    //Patron singleton
     private static OperacionesBaseDatos instancia = new OperacionesBaseDatos();
 
     private OperacionesBaseDatos() {
@@ -39,17 +40,25 @@ public final class OperacionesBaseDatos {
         database.close();
     }
 
-    public void insertarUsuario (Usuarios usuarios)
+    public void insertarUsuario (Usuarios usuario)
     {
         SQLiteDatabase db = baseDatos.getWritableDatabase();
-        db.execSQL("INSERT INTO USUARIOS (ID, USUARIO, PASSWORD ) VALUES ('"+usuarios.getId()+"' , '"+usuarios.getUsuario()+"', '"+usuarios.getPassword()+"')");
+        //TODO: controlar exceptiones de BD
+
+        ContentValues valores = new ContentValues();
+        valores.put("USUARIO", usuario.getUsuario());
+        valores.put("PASSWORD", usuario.getPassword());
+
+        // Insertar usuario y password
+        db.insertOrThrow("USUARIOS", null, valores);
+
         this.cerrarBaseDatos(db);
     }
 
-    public boolean validarUsuarioPassword(String usuario, int password){
+    public boolean validarUsuarioPassword(Usuarios usuario){
         boolean usuarioOK = false;
 
-        String consulta = "SELECT COUNT(*) FROM USUARIOS WHERE USUARIO ='"+usuario+"' AND PASSWORD = "+ password;
+        String consulta = "SELECT COUNT(*) FROM USUARIOS WHERE USUARIO ='"+usuario.getUsuario()+"' AND PASSWORD = "+ usuario.getPassword();
 
         SQLiteDatabase db = baseDatos.getReadableDatabase();
         Cursor cursor = db.rawQuery(consulta, null);
@@ -66,37 +75,35 @@ public final class OperacionesBaseDatos {
         return usuarioOK;
     }
 
-    public void deleteUsuarioImagen(String usuario, int idImagen){
+    public void borrarFavorito(Favoritos favoritos){
+
         SQLiteDatabase db = baseDatos.getWritableDatabase();
+        ContentValues valores = new ContentValues();
+        valores.put("USUARIO", favoritos.getUsuario());
+        valores.put("IMAGEN", favoritos.getIdImage());
 
-
-      ContentValues valores = new ContentValues();
-      valores.put("USUARIO", usuario);
-      valores.put("IMAGEN", idImagen);
-
+        //TODO: Usar valores
         // Insertar usuario e idImagen
-      db.delete("FAVORITOS","USUARIO=? and IMAGEN=?",new String[]{usuario,String.valueOf(idImagen)});
+        db.delete("FAVORITOS","USUARIO=? and IMAGEN=?",new String[]{favoritos.getUsuario(),String.valueOf(favoritos.getIdImage())});
     }
 
-    public void insertarFavorito(String usuario, int idImagen){
+    public void insertarFavorito(Favoritos favoritos){
 
         SQLiteDatabase db = baseDatos.getWritableDatabase();
         //TODO: controlar exceptiones de BD
+        ContentValues valores = new ContentValues();
+        valores.put("USUARIO", favoritos.getUsuario());
+        valores.put("IMAGEN", favoritos.getIdImage());
 
-            ContentValues valores = new ContentValues();
-            valores.put("USUARIO", usuario);
-            valores.put("IMAGEN", idImagen);
-
-            // Insertar usuario e idImagen
-            db.insertOrThrow("FAVORITOS", null, valores);
+        // Insertar usuario e idImagen
+        db.insertOrThrow("FAVORITOS", null, valores);
     }
 
-    public boolean tableIsEmpty(String tableName){
+    public boolean tableIsEmpty(String nombreTabla){
 
         boolean tablaVacia = false;
-        int numReg = 0;
 
-        String consulta = "SELECT COUNT(*) FROM "+tableName;
+        String consulta = "SELECT COUNT(*) FROM " + nombreTabla;
         SQLiteDatabase db = baseDatos.getReadableDatabase();
         Cursor cursor = db.rawQuery(consulta, null);
         if( cursor != null || cursor.getCount() <=0){
@@ -106,15 +113,12 @@ public final class OperacionesBaseDatos {
             }
             cursor.close();
         }
-
         return tablaVacia;
-
     }
 
     public void mostrarContenidoTabla(String nombreTabla){
 
-
-        String consulta = "SELECT * FROM "+nombreTabla;
+        String consulta = "SELECT * FROM " + nombreTabla;
 
         SQLiteDatabase db = baseDatos.getReadableDatabase();
         Cursor cursor = db.rawQuery(consulta, null);
@@ -140,14 +144,11 @@ public final class OperacionesBaseDatos {
             cursor.close();
         }
         this.cerrarBaseDatos(db);
-
     }
 
     public List<Integer> obtenerFavoritos(String usuario){
 
-
         String consulta = "SELECT * FROM FAVORITOS WHERE USUARIO ='"+usuario+"'";
-
 
         SQLiteDatabase db = baseDatos.getReadableDatabase();
         Cursor cursor = db.rawQuery(consulta, null);
@@ -156,30 +157,6 @@ public final class OperacionesBaseDatos {
             Integer idImagen = cursor.getInt(cursor.getColumnIndex("IMAGEN"));
             favoritos.add(idImagen);
         }
-
         return favoritos;
     }
-
-
-//    public String insertarCabeceraPedido(CabeceraPedido pedido) {
-//        SQLiteDatabase db = baseDatos.getWritableDatabase();
-//
-//        // Generar Pk
-//        String idCabeceraPedido = CabecerasPedido.generarIdCabeceraPedido();
-//
-//        ContentValues valores = new ContentValues();
-//        valores.put(CabecerasPedido.ID_CABECERA_PEDIDO, idCabeceraPedido);
-//        valores.put(CabecerasPedido.FECHA, pedido.fecha);
-//        valores.put(CabecerasPedido.ID_CLIENTE, pedido.idCliente);
-//        valores.put(CabecerasPedido.ID_FORMA_PAGO, pedido.idFormaPago);
-//
-//        // Insertar cabecera
-//        db.insertOrThrow(Tablas.CABECERA_PEDIDO, null, valores);
-//
-//        return idCabeceraPedido;
-//    }
-
-
-
-
 }
