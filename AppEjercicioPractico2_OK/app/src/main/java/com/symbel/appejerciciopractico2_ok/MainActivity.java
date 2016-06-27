@@ -1,49 +1,67 @@
 package com.symbel.appejerciciopractico2_ok;
 
-import android.os.Bundle;
+import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+import android.widget.TextView;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
-    private final String TAG = "MainActivity";
-    private RecyclerView recyclerView;
-    private LinearLayoutManager layoutManager;
-    private RecyclerViewAdapter adapter;
+    ListView list_view;
+    ArrayList<String> list = new ArrayList<String>();
+    ArrayAdapter<String> adapter;
+    boolean[] isSelected;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        ViewHolder holder = new ViewHolder();
+        holder.text = (TextView) .findViewById(R.id.text_view);
+        this.setTag
 
-        recyclerView = (RecyclerView)findViewById(R.id.recycler_view);
-        recyclerView.setHasFixedSize(true);
-        //recyclerView.addItemDecoration(new SimpleDividerItemDecoration(this));
 
-        //Indicamos el layoutManager
-        layoutManager = new LinearLayoutManager(MainActivity.this);
-        recyclerView.setLayoutManager(layoutManager);
 
-        List<ItemObject> filas = returnListItems();
 
-        //Indicamos el adapter
-
-        adapter = new RecyclerViewAdapter(MainActivity.this, filas);
-        recyclerView.setAdapter(adapter);
-    }
-
-    private List<ItemObject> returnListItems(){
-        List<ItemObject> items = new ArrayList<ItemObject>();
-
+        list_view = (ListView)findViewById(R.id.LstColores);
         for (int i=0; i<=30; i++){
-            items.add(new ItemObject("Fila" + i));
+            list.add(String.valueOf("Fila: " + i));
 
         }
-        return items;
+
+        isSelected = new boolean[list.size()];
+
+        adapter = new ArrayAdapter<String>(this,R.layout.list_item, list);
+        list_view.setAdapter(adapter);
+        list_view.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                //String item = list.get(position);
+                if(isSelected[position]){
+                    view.setBackgroundColor(Color.WHITE);
+                    isSelected[position] = false;
+                }else if(!isSelected[position]){
+                    view.setBackgroundColor(Color.GREEN);
+                    isSelected[position] = true;
+                }
+            }
+        });
     }
+
+    static class ViewHolder {
+        TextView textViewItem;
+    }
+
+
+
+
+
 }

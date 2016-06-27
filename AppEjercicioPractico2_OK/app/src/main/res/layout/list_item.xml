@@ -1,20 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                android:id="@+id/container"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@drawable/background_selector"
-                android:padding="16dp">
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp"
+    android:minHeight="15dp"
+    android:textSize="20sp"
+    android:focusable="false"
+    android:id="@+id/text_view"
+    android:layout_gravity="center">
 
-    <TextView
-        android:id="@+id/song_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="New Text"
-        android:layout_marginTop="10dp"
-        android:textSize="18dp"
-        android:textStyle="bold"
-        android:textColor="@color/colorPrimaryDark"/>
-
-
-</RelativeLayout>
+</TextView>
