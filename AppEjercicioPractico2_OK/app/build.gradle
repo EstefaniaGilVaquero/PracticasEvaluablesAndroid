@@ -5,7 +5,7 @@ android {
     buildToolsVersion "23.0.3"
 
     defaultConfig {
-        applicationId "com.symbel.appejerciciopractico1"
+        applicationId "com.symbel.appejerciciopractico2_ok"
         minSdkVersion 16
         targetSdkVersion 23
         versionCode 1
@@ -23,7 +23,4 @@ dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     testCompile 'junit:junit:4.12'
     compile 'com.android.support:appcompat-v7:23.4.0'
-    compile group: 'org.xerial', name: 'sqlite-jdbc', version: '3.8.11.2'
-    compile 'com.android.support:design:23.3.0'
-
 }
