@@ -25,6 +25,8 @@ public class MainActivity extends AppCompatActivity {
     ArrayList<String> list = new ArrayList<String>();
     ArrayAdapter<String> adapter;
     boolean[] isSelected;
+
+
     /**
      * ATTENTION: This was auto-generated to implement the App Indexing API.
      * See https://g.co/AppIndexing/AndroidStudio for more information.
@@ -36,15 +38,18 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
-
         list_view = (ListView) findViewById(R.id.LstColores);
         for (int i = 0; i <= 30; i++) {
             list.add(String.valueOf("Fila: " + i));
 
         }
 
-        isSelected = new boolean[list.size()];
+        //Comprobamos si se ha dado la vuelta al dispositivo y por lo tanto tenemos elementos seleccionados
+        if (savedInstanceState != null) {
+            isSelected = savedInstanceState.getBooleanArray(null);
+        }else {
+            isSelected = new boolean[list.size()];
+        }
 
         //Adaptador
         AdaptadorColores adaptador = new AdaptadorColores(this, list);
@@ -67,7 +72,6 @@ public class MainActivity extends AppCompatActivity {
         });
 
     }
-
 
 
     class AdaptadorColores extends ArrayAdapter<String> {
@@ -112,37 +116,12 @@ public class MainActivity extends AppCompatActivity {
         TextView fila;
     }
 
+    //Sobreescribimos el metodo para guardar las filas seleccionadas
+    //en caso de cambio de orientacion
+    @Override
+    public void onSaveInstanceState(Bundle savedInstanceState) {
+        super.onSaveInstanceState(savedInstanceState);
+        savedInstanceState.putBooleanArray(null, isSelected);
 
-//    class AdaptadorTitulares extends ArrayAdapter<Titulo> {
-//
-//        AdaptadorTitulares(Context context, Titulo[] datos) {
-//            super(context, R.layout.listitem_titular, datos);
-//        }
-//
-//        public View getView(int position, View convertView, ViewGroup parent) {
-//
-//            View item = convertView;
-//            ViewHolder holder;
-//
-//            if (item == null) {
-//                LayoutInflater inflater = LayoutInflater.from(getContext());
-//                item = inflater.inflate(R.layout.listitem_titular, null);
-//
-//                holder = new ViewHolder();
-//                holder.titulo = (TextView) item.findViewById(R.id.LblTitulo);
-//                holder.subtitulo = (TextView) item.findViewById(R.id.LblSubTitulo);
-//
-//                item.setTag(holder);
-//            } else {
-//                holder = (ViewHolder) item.getTag();
-//            }
-//
-//            holder.titulo.setText(datos[position].getTitulo());
-//            holder.subtitulo.setText(datos[position].getSubtitulo());
-//
-//            return (item);
-//        }
-//    }
-
-
+    }
 }
