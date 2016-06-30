@@ -2,6 +2,7 @@ package com.symbel.appejerciciopractico2;
 
 import android.content.Context;
 import android.graphics.Color;
+
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -13,13 +14,14 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 
+
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
     ListView list_view;
     ArrayList<String> list = new ArrayList<String>();
-  //  ArrayAdapter<String> adapter;
+    ArrayAdapter<String> adapter;
     boolean[] isSelected;
 
 
@@ -102,7 +104,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    static class ViewHolder {
+    class ViewHolder {
         TextView fila;
     }
 
