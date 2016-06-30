@@ -2,7 +2,6 @@ package com.symbel.appejerciciopractico2;
 
 import android.content.Context;
 import android.graphics.Color;
-import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -13,9 +12,6 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.google.android.gms.appindexing.Action;
-import com.google.android.gms.appindexing.AppIndex;
-import com.google.android.gms.common.api.GoogleApiClient;
 
 import java.util.ArrayList;
 
@@ -23,7 +19,7 @@ public class MainActivity extends AppCompatActivity {
 
     ListView list_view;
     ArrayList<String> list = new ArrayList<String>();
-    ArrayAdapter<String> adapter;
+  //  ArrayAdapter<String> adapter;
     boolean[] isSelected;
 
 
