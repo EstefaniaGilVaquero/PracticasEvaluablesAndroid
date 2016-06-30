@@ -1,4 +1,4 @@
-package com.symbel.appejerciciopractico2_ok;
+package com.symbel.appejerciciopractico2;
 
 import android.content.Context;
 import android.graphics.Color;
@@ -26,12 +26,6 @@ public class MainActivity extends AppCompatActivity {
     ArrayAdapter<String> adapter;
     boolean[] isSelected;
 
-
-    /**
-     * ATTENTION: This was auto-generated to implement the App Indexing API.
-     * See https://g.co/AppIndexing/AndroidStudio for more information.
-     */
-    private GoogleApiClient client;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

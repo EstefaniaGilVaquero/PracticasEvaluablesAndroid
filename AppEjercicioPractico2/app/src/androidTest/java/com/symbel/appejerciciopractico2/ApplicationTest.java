@@ -1,4 +1,4 @@
-package com.symbel.appejerciciopractico2_ok;
+package com.symbel.appejerciciopractico2;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;

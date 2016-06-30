@@ -5,7 +5,7 @@ android {
     buildToolsVersion "23.0.3"
 
     defaultConfig {
-        applicationId "com.symbel.appejerciciopractico2_ok"
+        applicationId "com.symbel.appejerciciopractico2"
         minSdkVersion 16
         targetSdkVersion 23
         versionCode 1
