@@ -21,8 +21,7 @@ public class MainActivity extends AppCompatActivity {
 
     ListView list_view;
     ArrayList<String> list = new ArrayList<String>();
-    ArrayAdapter<String> adapter;
-    boolean[] isSelected;
+
 
 
     @Override
@@ -37,14 +36,14 @@ public class MainActivity extends AppCompatActivity {
         }
 
         //Comprobamos si se ha dado la vuelta al dispositivo y por lo tanto tenemos elementos seleccionados
-        if (savedInstanceState != null) {
-            isSelected = savedInstanceState.getBooleanArray(null);
-        }else {
-            isSelected = new boolean[list.size()];
-        }
+//        if (savedInstanceState != null) {
+//            isSelected = savedInstanceState.getBooleanArray(null);
+//        }else {
+//            isSelected = new boolean[list.size()];
+//        }
 
         //Adaptador
-        AdaptadorColores adaptador = new AdaptadorColores(this, list);
+        Adapter adaptador = new Adapter(this, list);
 
 
         list_view.setAdapter(adaptador);
@@ -52,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                //String item = list.get(position);
+                boolean[] isSelected = (boolean[]) parent.getTag();
                 if (isSelected[position]) {
                     view.setBackgroundColor(Color.WHITE);
                     isSelected[position] = false;
@@ -66,54 +65,14 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    class AdaptadorColores extends ArrayAdapter<String> {
 
-        AdaptadorColores(Context context, ArrayList<String> list) {
-            super(context, R.layout.list_item, list);
-        }
-
-        public View getView(int position, View convertView, ViewGroup parent) {
-
-            View item = convertView;
-            ViewHolder holder;
-
-            if (item == null) {
-                LayoutInflater inflater = LayoutInflater.from(getContext());
-                item = inflater.inflate(R.layout.list_item, null);
-
-                holder = new ViewHolder();
-                holder.fila = (TextView) item.findViewById(R.id.text_view);
-
-                item.setTag(holder);
-
-
-            } else {
-                holder = (ViewHolder) item.getTag();
-
-            }
-
-            if (isSelected[position]) {
-                item.setBackgroundColor(Color.GREEN);
-            } else {
-                item.setBackgroundColor(Color.WHITE);
-            }
-
-            holder.fila.setText(list.get(position));
-
-            return (item);
-        }
-    }
-
-    class ViewHolder {
-        TextView fila;
-    }
 
     //Sobreescribimos el metodo para guardar las filas seleccionadas
     //en caso de cambio de orientacion
-    @Override
-    public void onSaveInstanceState(Bundle savedInstanceState) {
-        super.onSaveInstanceState(savedInstanceState);
-        savedInstanceState.putBooleanArray(null, isSelected);
-
-    }
+//    @Override
+//    public void onSaveInstanceState(Bundle savedInstanceState) {
+//        super.onSaveInstanceState(savedInstanceState);
+//        savedInstanceState.putBooleanArray(null, isSelected);
+//
+//    }
 }
