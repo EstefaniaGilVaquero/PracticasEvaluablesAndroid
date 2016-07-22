@@ -8,15 +8,9 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.widget.RecyclerView;
 
 import com.symbel.appejerciciopractico3.R;
-import com.symbel.appejerciciopractico3.adapter.PageAdapter;
+import com.symbel.appejerciciopractico3.adapter.PageAdapterPropio;
 
 public class MainActivity extends FragmentActivity {
-
-    private RecyclerView mRecyclerView;
-    private RecyclerView.Adapter mAdapter;
-    private RecyclerView.LayoutManager mLayoutManager;
-
-
 
     /**
      * El VIEWPAGER permite transitar entre las pantallas. Se encarga de la animación y atiende al desplazmiento (swipe)
@@ -31,13 +25,15 @@ public class MainActivity extends FragmentActivity {
     private PagerAdapter pagerAdapter;
 
     //Titulo visible para cada fragment
-    private static String[] titulo_tab = {"PRODUCTOS", "HISTÓRICO"};
+    private static String[] titulo_tab = {"OPTION 1", "OPTION 2", "OPTION 2"};
 
     public static String getTitulo (int position){
         return titulo_tab[position];
     }
 
-@Override
+
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_productos);
@@ -45,7 +41,7 @@ public class MainActivity extends FragmentActivity {
         // Obtengo la referencia al ViewPager
         viewPager = (ViewPager) findViewById(R.id.pager);
         //Y le asigno su adpter
-        pagerAdapter = new PageAdapter(getSupportFragmentManager());
+        pagerAdapter = new PageAdapterPropio(getSupportFragmentManager());
         viewPager.setAdapter(pagerAdapter);
 
         //Referencia al tablelayout
@@ -57,8 +53,19 @@ public class MainActivity extends FragmentActivity {
         //Asociar al viewpager para que cambie al cambiar el susodicho
         tableLayout.setupWithViewPager(viewPager);
 
+    }
 
 
-
-}
+    //Sobreescribiendo este método, consigo personalizar el comportamiento del botón "hacia atrás"
+    //en esta actividad.
+    @Override
+    public void onBackPressed() {
+        if (viewPager.getCurrentItem() == 0) {
+            // Si estoy en la pantalla inicial, hago que se cierre la app (comportamiento por defecto logrado invocando al padre)
+            super.onBackPressed();
+        } else {
+            // Si no, paso a una pantalla anterior
+            viewPager.setCurrentItem(viewPager.getCurrentItem() - 1);
+        }
+    }
 }
