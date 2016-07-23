@@ -39,13 +39,13 @@ public class MainActivity extends FragmentActivity {
         setContentView(R.layout.activity_productos);
 
         // Obtengo la referencia al ViewPager
-        viewPager = (ViewPager) findViewById(R.id.pager);
+        viewPager = (ViewPager) findViewById(R.id.viewpager);
         //Y le asigno su adpter
         pagerAdapter = new PageAdapterPropio(getSupportFragmentManager());
         viewPager.setAdapter(pagerAdapter);
 
         //Referencia al tablelayout
-        TabLayout tableLayout = (TabLayout) findViewById(R.id.tablay);
+        TabLayout tableLayout = (TabLayout) findViewById(R.id.tab_layout);
         //Creo dinamicamente los elementos
         tableLayout.addTab(tableLayout.newTab());
         tableLayout.addTab(tableLayout.newTab());

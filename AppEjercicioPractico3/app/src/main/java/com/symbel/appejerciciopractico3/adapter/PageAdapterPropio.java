@@ -7,6 +7,7 @@ import android.support.v4.app.ListFragment;
 
 import com.symbel.appejerciciopractico3.activity.MainActivity;
 import com.symbel.appejerciciopractico3.fragment.HistoricoFragment;
+import com.symbel.appejerciciopractico3.fragment.ListadoFragment;
 
 public class PageAdapterPropio extends FragmentStatePagerAdapter {
 
@@ -24,7 +25,7 @@ public class PageAdapterPropio extends FragmentStatePagerAdapter {
 
         switch (position)
         {
-            case 0: fragment = new ListFragment();
+            case 0: fragment = new ListadoFragment();
                 break;
             case 1: fragment = new HistoricoFragment();
                 break;
