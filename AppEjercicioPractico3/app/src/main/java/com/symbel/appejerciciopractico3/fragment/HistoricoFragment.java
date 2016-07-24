@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.symbel.appejerciciopractico3.R;
+import com.symbel.appejerciciopractico3.adapter.HistoricoAdapter;
 import com.symbel.appejerciciopractico3.adapter.ListadoAdapter;
 
 /**
@@ -29,7 +30,7 @@ public class HistoricoFragment extends Fragment {
         ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_historico, container, false);
         RecyclerView rv = (RecyclerView) rootView.findViewById(R.id.rv_recycler_view);
         rv.setHasFixedSize(true);
-        ListadoAdapter adapter = new ListadoAdapter(new String[]{"test one", "test two", "test three", "test four", "test five" , "test six" , "test seven","test one", "test two", "test three", "test four", "test five" , "test six" , "test seven"});
+        HistoricoAdapter adapter = new HistoricoAdapter(new String[]{"test one", "test two", "test three", "test four", "test five" , "test six" , "test seven","test one", "test two", "test three", "test four", "test five" , "test six" , "test seven"});
         rv.setAdapter(adapter);
 
         LinearLayoutManager llm = new LinearLayoutManager(getActivity());

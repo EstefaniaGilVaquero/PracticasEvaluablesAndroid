@@ -28,16 +28,27 @@ import java.util.UUID;
 
 public class Producto {
 
-   // private UUID id;
-    private Image imagen;
+    private Integer id;
     private String nombre;
-    private Integer precio;
+    private Double precio;
+    private Integer unidades;
+    private String descripcion;
+    private Image imagen;
 
     //    public Producto() {
     //        // Generar identificador unico
     //        id = UUID.randomUUID();
     //
     //    }
+
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
     public Image getImagen() {
         return imagen;
@@ -55,11 +66,11 @@ public class Producto {
         this.nombre = nombre;
     }
 
-    public Integer getPrecio() {
+    public Double getPrecio() {
         return precio;
     }
 
-    public void setPrecio(Integer precio) {
+    public void setPrecio(Double precio) {
         this.precio = precio;
     }
 
@@ -78,12 +89,4 @@ public class Producto {
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
     }
-
-    private Integer unidades;
-    private String descripcion;
-
-
-
-
-
 }
