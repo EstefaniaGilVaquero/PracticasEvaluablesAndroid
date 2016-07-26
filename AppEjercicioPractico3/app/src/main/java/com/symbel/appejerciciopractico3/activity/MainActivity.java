@@ -60,37 +60,17 @@ public class MainActivity extends FragmentActivity {
         //Asociar al viewpager para que cambie al cambiar el susodicho
         tableLayout.setupWithViewPager(viewPager);
 
-        if(UtilInternet.isNetworkAvailable(this)){
-            Log.d(getClass().getCanonicalName(), "SI HAY INTERNET");
-            new ObtenerProductos().execute("Paco");
-        }else{
-            Log.d(getClass().getCanonicalName(), "NO HAY INTERNET");
-            FragmentManager fm = this.getFragmentManager();
-            DialogFragment dialogo = new DialogFragment();
-            dialogo.show(fm, "aviso");
-        }
+//        if(UtilInternet.isNetworkAvailable(this)){
+//            Log.d(getClass().getCanonicalName(), "SI HAY INTERNET");
+//            new ObtenerProductos().execute();
+//        }else{
+//            Log.d(getClass().getCanonicalName(), "NO HAY INTERNET");
+//            FragmentManager fm = this.getFragmentManager();
+//            DialogFragment dialogo = new DialogFragment();
+//            dialogo.show(fm, "aviso");
+//        }
+     }
 
 
 
-
-
-
-
-
-
-    }
-
-
-    //Sobreescribiendo este método, consigo personalizar el comportamiento del botón "hacia atrás"
-    //en esta actividad.
-    @Override
-    public void onBackPressed() {
-        if (viewPager.getCurrentItem() == 0) {
-            // Si estoy en la pantalla inicial, hago que se cierre la app (comportamiento por defecto logrado invocando al padre)
-            super.onBackPressed();
-        } else {
-            // Si no, paso a una pantalla anterior
-            viewPager.setCurrentItem(viewPager.getCurrentItem() - 1);
-        }
-    }
 }
