@@ -20,36 +20,12 @@ import java.util.ArrayList;
 /**
  * Created by vale on 20/06/16.
  */
-public class ListadoAdapter extends RecyclerView.Adapter<ListadoAdapter.MyViewHolder> {
+public class ListadoAdapter extends RecyclerView.Adapter<ListadoHolder> {
     private ArrayList<Producto> mListado_Productos;
     private Context context;
 
 
-    // Provide a reference to the views for each data item
-    // Complex data items may need more than one view per item, and
-    // you provide access to all the views for a data item in a view holder
-    public static class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
-        private ItemClickListener itemClickListener;
-        public CardView mCardView;
-        public TextView mTextView;
-        public MyViewHolder(View v) {
-            super(v);
-
-            mCardView = (CardView) v.findViewById(R.id.card_view);
-            mTextView = (TextView) v.findViewById(R.id.tv_text);
-        }
-
-        @Override
-        public void onClick(View v) {
-            this.itemClickListener.onItemClick(v,getLayoutPosition());
-        }
-
-        public void setItemClickListener(ItemClickListener ic)
-        {
-            this.itemClickListener=ic;
-        }
-    }
 
     // Provide a suitable constructor (depends on the kind of dataset)
     public ListadoAdapter(Context context, ArrayList<Producto> listado_productos) {
@@ -59,19 +35,20 @@ public class ListadoAdapter extends RecyclerView.Adapter<ListadoAdapter.MyViewHo
 
     // Create new views (invoked by the layout manager)
     @Override
-    public ListadoAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType)  {
-        // create a new view
-        View v = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.listado_card_item, parent, false);
-        // set the view's size, margins, paddings and layout parameters
-        MyViewHolder vh = new MyViewHolder(v);
+    public ListadoHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        //INFLATE A VIEW FROM XML
+        View v= LayoutInflater.from(parent.getContext()).inflate(R.layout.listado_card_item,null);
 
-    return vh;
+        //HOLDER
+        ListadoHolder holder=new ListadoHolder(v);
+
+        return holder;
     }
 
     @Override
-    public void onBindViewHolder(MyViewHolder holder, int position) {
-        holder.mTextView.setText(mListado_Productos.get(position).getNombre());
+    public void onBindViewHolder(ListadoHolder holder, int position) {
+        holder.nombreTxt.setText(mListado_Productos.get(position).getNombre());
+        holder.unidadesTxt.setText(mListado_Productos.get(position).getUnidades());
 
         //WHEN ITEM IS CLICKED
         holder.setItemClickListener(new ItemClickListener() {
@@ -83,24 +60,16 @@ public class ListadoAdapter extends RecyclerView.Adapter<ListadoAdapter.MyViewHo
 
                 //ADD DATA TO OUR INTENT
                 i.putExtra("Nombre",mListado_Productos.get(pos).getNombre());
-                i.putExtra("Precio",mListado_Productos.get(pos).getNombre());
-                i.putExtra("Unidades",mListado_Productos.get(pos).getNombre());
-                i.putExtra("Descripcion",mListado_Productos.get(pos).getNombre());
-
-
-
-
-
+                i.putExtra("Precio",mListado_Productos.get(pos).getPrecio());
+                i.putExtra("Unidades",mListado_Productos.get(pos).getUnidades());
+                i.putExtra("Descripcion",mListado_Productos.get(pos).getDescripcion());
 
                 //START DETAIL ACTIVITY
                 context.startActivity(i);
 
             }
         });
-
-
-
-    }
+ }
 
     @Override
     public int getItemCount() {

@@ -42,10 +42,6 @@ public class ListadoFragment extends Fragment {
         ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_listado, container, false);
         rv = (RecyclerView) rootView.findViewById(R.id.rv_recycler_view);
 
-
-
-
-
         if(UtilInternet.isNetworkAvailable(getActivity())){
             Log.d(getClass().getCanonicalName(), "SI HAY INTERNET");
             new ObtenerProductos(context).execute();

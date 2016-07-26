@@ -25,8 +25,7 @@ public class DetalleActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detalle);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        //TODO: Poner flecha back en actionBar
 
         //Recibimos los datos del intent
         Intent i=getIntent();
@@ -47,7 +46,7 @@ public class DetalleActivity extends AppCompatActivity {
         //Asignamos datos a las vistas
 
         nombreTxt.setText("Producto :   " + nombre);
-        precioTxt.setText("Precio : " + precio);
+        precioTxt.setText("Precio : " + precio + "€");
         unidadesTxt.setText("Unidades : " + unidades);
         descripcionTxt.setText("Descripcion : " + descripcion);
        // imagenIv.setImageResource(imagen);

@@ -45,7 +45,7 @@ public class ObtenerProductos extends AsyncTask<Void, Void, ArrayList<Producto>>
         super.onPreExecute();
         Log.d(getClass().getCanonicalName(), "Executando onPreExecute de EfetuaLogin");
         //inicia diálogo de progresso, mostranto processamento com servidor.
-        progressDialog = ProgressDialog.show(mContext, "Autenticando", "Contactando o servidor, por favor, aguarde alguns instantes.", true, false);
+        progressDialog = ProgressDialog.show(mContext, "Conectando con el Servidor", "Espera unos segundos.", true, false);
     }
 
 
