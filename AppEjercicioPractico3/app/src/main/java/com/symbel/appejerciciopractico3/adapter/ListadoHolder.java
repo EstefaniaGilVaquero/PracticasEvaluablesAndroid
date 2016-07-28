@@ -2,10 +2,8 @@ package com.symbel.appejerciciopractico3.adapter;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.symbel.appejerciciopractico3.ItemClickListener;
 import com.symbel.appejerciciopractico3.R;
 
 /**
@@ -15,7 +13,7 @@ public class ListadoHolder extends RecyclerView.ViewHolder implements View.OnCli
     //OUR VIEWS
 
     TextView nombreTxt;
-    TextView unidadesTxt;
+    TextView precioTxt;
     private ItemClickListener itemClickListener;
 
 //our contructor
@@ -23,7 +21,7 @@ public class ListadoHolder extends RecyclerView.ViewHolder implements View.OnCli
         super(itemView);
 
         nombreTxt= (TextView) itemView.findViewById(R.id.tv_nombre);
-        unidadesTxt= (TextView) itemView.findViewById(R.id.tv_unidades);
+        precioTxt= (TextView) itemView.findViewById(R.id.tv_precio);
 
         itemView.setOnClickListener(this);
     }

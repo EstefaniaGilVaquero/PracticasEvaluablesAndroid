@@ -28,13 +28,16 @@ import java.util.UUID;
 
 public class Producto {
 
+    private String id;
     private String nombre;
     private String precio;
     private String unidades;
     private String descripcion;
-    private Image imagen;
+    private String fechaVisto;
+    private String imagen;
 
-    public Producto(String nombre, String precio, String unidades, String descripcion, Image imagen) {
+    public Producto(String id, String nombre, String precio, String unidades, String descripcion, String imagen) {
+        this.id = id;
         this.nombre = nombre;
         this.precio = precio;
         this.unidades = unidades;
@@ -42,11 +45,25 @@ public class Producto {
         this.imagen = imagen;
     }
 
-    public Image getImagen() {
+    public String getFechaVisto() {
+        return fechaVisto;
+    }
+
+    public void setFechaVisto(String fechaVisto) {
+        this.fechaVisto = fechaVisto;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+
+
+    public String getImagen() {
         return imagen;
     }
 
-    public void setImagen(Image imagen) {
+    public void setImagen(String imagen) {
         this.imagen = imagen;
     }
 
@@ -54,31 +71,23 @@ public class Producto {
         return nombre;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
+
 
     public String getPrecio() {
         return precio;
     }
 
-    public void setPrecio(String precio) {
-        this.precio = precio;
-    }
+
 
     public String getUnidades() {
         return unidades;
     }
 
-    public void setUnidades(String unidades) {
-        this.unidades = unidades;
-    }
+
 
     public String getDescripcion() {
         return descripcion;
     }
 
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
-    }
+
 }

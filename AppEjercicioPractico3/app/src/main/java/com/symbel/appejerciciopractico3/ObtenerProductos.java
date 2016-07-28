@@ -2,7 +2,6 @@ package com.symbel.appejerciciopractico3;
 
 
 import android.app.ProgressDialog;
-import android.content.ContentValues;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.support.v7.widget.LinearLayoutManager;
@@ -10,8 +9,8 @@ import android.util.Log;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.symbel.appejerciciopractico3.activity.MainActivity;
 import com.symbel.appejerciciopractico3.adapter.ListadoAdapter;
+import com.symbel.appejerciciopractico3.fragment.HistoricoFragment;
 import com.symbel.appejerciciopractico3.fragment.ListadoFragment;
 import com.symbel.appejerciciopractico3.model.Producto;
 
@@ -85,6 +84,7 @@ public class ObtenerProductos extends AsyncTask<Void, Void, ArrayList<Producto>>
         }catch (Throwable t){
             Log.d(getClass().getCanonicalName(), "Error al obtener Productos", t);
         }
+
         return lista_productos;
     }
 
@@ -94,11 +94,11 @@ public class ObtenerProductos extends AsyncTask<Void, Void, ArrayList<Producto>>
         super.onPostExecute(listado_productos);
         ListadoAdapter adapter = new ListadoAdapter(mContext,listado_productos );
         ListadoFragment.rv.setAdapter(adapter);
-
         LinearLayoutManager llm = new LinearLayoutManager(mContext);
         ListadoFragment.rv.setLayoutManager(llm);
         ListadoFragment.rv.setHasFixedSize(true);
 
+        HistoricoFragment.cargarHistorico(mContext, listado_productos);
 
         progressDialog.dismiss();
     }

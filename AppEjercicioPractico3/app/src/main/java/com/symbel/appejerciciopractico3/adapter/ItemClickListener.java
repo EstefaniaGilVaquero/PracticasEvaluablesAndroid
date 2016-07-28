@@ -1,4 +1,4 @@
-package com.symbel.appejerciciopractico3;
+package com.symbel.appejerciciopractico3.adapter;
 
 import android.view.View;
 

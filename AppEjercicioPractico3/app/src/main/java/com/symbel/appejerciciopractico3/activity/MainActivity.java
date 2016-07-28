@@ -1,21 +1,17 @@
 package com.symbel.appejerciciopractico3.activity;
 
-import android.app.DialogFragment;
-import android.app.FragmentManager;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 
-import com.symbel.appejerciciopractico3.ObtenerProductos;
 import com.symbel.appejerciciopractico3.R;
 import com.symbel.appejerciciopractico3.adapter.PageAdapterPropio;
-import com.symbel.appejerciciopractico3.utils.UtilInternet;
 
 public class MainActivity extends FragmentActivity {
+
+
 
     /**
      * El VIEWPAGER permite transitar entre las pantallas. Se encarga de la animación y atiende al desplazmiento (swipe)
@@ -43,6 +39,19 @@ public class MainActivity extends FragmentActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_productos);
 
+
+
+        //TODO: y si llamo aqui a obtener productos e imagenes?
+       // new DescargarImagenesTask().execute(Constantes.URL_SERVICIO_IMAGENES);
+/*
+        if (UtilInternet.isNetworkAvailable(context)) {
+            Log.d(getClass().getCanonicalName(), "SI HAY INTERNET");
+            new ObtenerProductos(context).execute();
+        } else {
+            Log.d(getClass().getCanonicalName(), "NO HAY INTERNET");
+
+        }*/
+
         // Obtengo la referencia al ViewPager
         viewPager = (ViewPager) findViewById(R.id.viewpager);
         //Y le asigno su adpter
@@ -60,17 +69,5 @@ public class MainActivity extends FragmentActivity {
         //Asociar al viewpager para que cambie al cambiar el susodicho
         tableLayout.setupWithViewPager(viewPager);
 
-//        if(UtilInternet.isNetworkAvailable(this)){
-//            Log.d(getClass().getCanonicalName(), "SI HAY INTERNET");
-//            new ObtenerProductos().execute();
-//        }else{
-//            Log.d(getClass().getCanonicalName(), "NO HAY INTERNET");
-//            FragmentManager fm = this.getFragmentManager();
-//            DialogFragment dialogo = new DialogFragment();
-//            dialogo.show(fm, "aviso");
-//        }
      }
-
-
-
 }
