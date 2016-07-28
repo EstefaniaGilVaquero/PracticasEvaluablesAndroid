@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 
 import com.symbel.appejerciciopractico3.R;
 import com.symbel.appejerciciopractico3.activity.DetalleActivity;
+import com.symbel.appejerciciopractico3.fragment.HistoricoFragment;
 import com.symbel.appejerciciopractico3.model.Producto;
 
 import java.util.ArrayList;
@@ -63,7 +64,7 @@ public class ListadoAdapter extends RecyclerView.Adapter<ListadoHolder> {
                 //Cuando se pulsa un item se guarda en preferencias de usuario
                 SharedPreferences prefs = context.getSharedPreferences(HISTORICO_PRODUCTOS,Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = prefs.edit();
-                editor.putString(mListado_Productos.get(pos).getId(), fechaHoraActual);
+                editor.putString(fechaHoraActual, mListado_Productos.get(pos).getNombre()+"^"+mListado_Productos.get(pos).getImagen());
                 editor.commit();
 
                 //Pinto preferencias guardadas de prueba

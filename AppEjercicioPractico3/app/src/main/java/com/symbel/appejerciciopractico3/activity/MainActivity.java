@@ -42,7 +42,7 @@ public class MainActivity extends FragmentActivity {
 
 
         //TODO: y si llamo aqui a obtener productos e imagenes?
-       // new DescargarImagenesTask().execute(Constantes.URL_SERVICIO_IMAGENES);
+       // new DescargarImagenes().execute(Constantes.URL_SERVICIO_IMAGENES);
 /*
         if (UtilInternet.isNetworkAvailable(context)) {
             Log.d(getClass().getCanonicalName(), "SI HAY INTERNET");

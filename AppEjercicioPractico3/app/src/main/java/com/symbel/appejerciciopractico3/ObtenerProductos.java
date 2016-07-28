@@ -74,7 +74,6 @@ public class ObtenerProductos extends AsyncTask<Void, Void, ArrayList<Producto>>
                 lista_productos = gson.fromJson (json_personas, new TypeToken<ArrayList<Producto>>(){}.getType());
                 Log.d(getClass().getCanonicalName(), lista_productos.toString());
 
-
             }
 
             httpURLConnection.disconnect();
@@ -91,15 +90,6 @@ public class ObtenerProductos extends AsyncTask<Void, Void, ArrayList<Producto>>
     @Override
     protected void onPostExecute(ArrayList<Producto> listado_productos)
     {
-        super.onPostExecute(listado_productos);
-        ListadoAdapter adapter = new ListadoAdapter(mContext,listado_productos );
-        ListadoFragment.rv.setAdapter(adapter);
-        LinearLayoutManager llm = new LinearLayoutManager(mContext);
-        ListadoFragment.rv.setLayoutManager(llm);
-        ListadoFragment.rv.setHasFixedSize(true);
-
-        HistoricoFragment.cargarHistorico(mContext, listado_productos);
-
         progressDialog.dismiss();
     }
 

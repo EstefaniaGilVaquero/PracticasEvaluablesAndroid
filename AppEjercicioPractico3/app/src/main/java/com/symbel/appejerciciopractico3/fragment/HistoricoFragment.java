@@ -3,6 +3,7 @@ package com.symbel.appejerciciopractico3.fragment;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -28,6 +29,7 @@ public class HistoricoFragment extends Fragment {
 
 
     public static RecyclerView rv;
+    public static ArrayList<Producto> historico_productos = new ArrayList();
     public final static String HISTORICO_PRODUCTOS = "historico";//nombre del fichero de preferences perfil.xml será
 
     public HistoricoFragment() {
@@ -40,72 +42,54 @@ public class HistoricoFragment extends Fragment {
 
         Context context = getActivity();
 
-        //TODO: Chapuza del siglo o mas
-
-
-
 
         ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_historico, container, false);
         rv = (RecyclerView) rootView.findViewById(R.id.rv_recycler_view);
 
+        historico_productos = cargarHistorico(context);
 
-
-
-      //  Log.d("Productos vistos", mListado_Productos.toString());
-
-
-        /*HistoricoAdapter adapter = new HistoricoAdapter(getActivity(), mListado_Productos);
-        rv.setAdapter(adapter);
-
-        LinearLayoutManager llm = new LinearLayoutManager(getActivity());
-        rv.setLayoutManager(llm);*/
+        //Asocio el adaptador al recyclerView
+        HistoricoAdapter adapter = new HistoricoAdapter(context, historico_productos);
+        HistoricoFragment.rv.setAdapter(adapter);
+        LinearLayoutManager llm = new LinearLayoutManager(context);
+        HistoricoFragment.rv.setLayoutManager(llm);
+        HistoricoFragment.rv.setHasFixedSize(true);
 
 
         return rootView;
     }
 
-    public static void cargarHistorico(Context context, ArrayList<Producto> listado_productos){
-
-        listado_productos = eliminarProductosNoVistos(context, listado_productos);
-
-
-            HistoricoAdapter adapter = new HistoricoAdapter(context, listado_productos);
-            HistoricoFragment.rv.setAdapter(adapter);
-            LinearLayoutManager llm = new LinearLayoutManager(context);
-            HistoricoFragment.rv.setLayoutManager(llm);
-            HistoricoFragment.rv.setHasFixedSize(true);
+    @Override
+    public void onResume() {
+        super.onResume();
+        //LLamo a la carga del historico cada vez que se muestra el tab Historico,
+        // para que se refresquen los cards
+        cargarHistorico(getActivity());
 
     }
 
-    public static ArrayList<Producto> eliminarProductosNoVistos(Context context, ArrayList<Producto> listado_productos){
-        //Creo un array con los productos vistos de las sharedPreferences
-        ArrayList<Producto> historico_productos = new ArrayList<>();
+    public static ArrayList<Producto> cargarHistorico(Context context){
+
+        //Reseteo el historico
+        historico_productos = new ArrayList();
+
+        //Recupero los productos visitados del sharedPreferences
+       // ArrayList<Producto> historico_productos = new ArrayList<>();
         SharedPreferences prefs = context.getSharedPreferences(HISTORICO_PRODUCTOS,Context.MODE_PRIVATE);
         Map<String, ?> allEntries = prefs.getAll();
-        Map<String,String> productos_sharedPreferences = new HashMap<>();
+        Producto producto = null;
         for (Map.Entry<String, ?> entry : allEntries.entrySet()) {
-            productos_sharedPreferences.put(entry.getKey().toString(),entry.getValue().toString());
+
+            //El nombre del producto y la imagen vienen concatenados en el value del sharedPreferences
+            String[] result = entry.getValue().toString().split("^");
+
+            producto = new Producto(entry.getKey(),result[0],result[1]);
+
+            historico_productos.add(producto);
             Log.d("map values", entry.getKey() + ": " + entry.getValue().toString());
 
         }
 
-        //Recorro el array de productos y guardo en un array los que esten en sharedPreferences
-        if (productos_sharedPreferences.size() != 0) {
-            int numeroProductos = listado_productos.size();
-            for (int i = 0; i < numeroProductos; i++) {
-                String idActual = listado_productos.get(i).getId();
-                if (productos_sharedPreferences.containsKey(idActual)) {
-
-                    //seteo la fecha de vista al producto
-                    listado_productos.get(i).setFechaVisto(productos_sharedPreferences.get(idActual));
-                    historico_productos.add(listado_productos.get(i));
-                }
-            }
-            Log.d("Historico Productos", historico_productos.toString());
-        }
-
         return historico_productos;
     }
-
-
 }

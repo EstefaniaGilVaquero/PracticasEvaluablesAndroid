@@ -4,6 +4,7 @@ package com.symbel.appejerciciopractico3.fragment;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -12,8 +13,11 @@ import android.view.ViewGroup;
 
 import com.symbel.appejerciciopractico3.ObtenerProductos;
 import com.symbel.appejerciciopractico3.R;
+import com.symbel.appejerciciopractico3.adapter.ListadoAdapter;
+import com.symbel.appejerciciopractico3.model.Producto;
 import com.symbel.appejerciciopractico3.utils.UtilInternet;
 
+import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 
 /**
@@ -23,6 +27,7 @@ public class ListadoFragment extends Fragment {
     //DATA SOURCE
 
     public static RecyclerView rv;
+    ArrayList<Producto> listado_productos;
 
     //Llamo al constructor del padre. Necesario para iniciar el fragment
     public ListadoFragment() {
@@ -40,7 +45,7 @@ public class ListadoFragment extends Fragment {
         if (UtilInternet.isNetworkAvailable(getActivity())) {
             Log.d(getClass().getCanonicalName(), "SI HAY INTERNET");
             try {
-                new ObtenerProductos(context).execute().get();
+              listado_productos = new ObtenerProductos(context).execute().get();
             } catch (InterruptedException e) {
                 e.printStackTrace();
             } catch (ExecutionException e) {
@@ -50,6 +55,13 @@ public class ListadoFragment extends Fragment {
             Log.d(getClass().getCanonicalName(), "NO HAY INTERNET");
 
         }
+
+        ListadoAdapter adapter = new ListadoAdapter(context,listado_productos );
+        ListadoFragment.rv.setAdapter(adapter);
+        LinearLayoutManager llm = new LinearLayoutManager(context);
+        ListadoFragment.rv.setLayoutManager(llm);
+        ListadoFragment.rv.setHasFixedSize(true);
+
         return rootView;
     }
 }

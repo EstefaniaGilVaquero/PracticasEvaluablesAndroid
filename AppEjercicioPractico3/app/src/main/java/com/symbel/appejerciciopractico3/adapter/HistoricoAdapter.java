@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.symbel.appejerciciopractico3.R;
+import com.symbel.appejerciciopractico3.fragment.HistoricoFragment;
 import com.symbel.appejerciciopractico3.model.Producto;
 
 import java.util.ArrayList;
@@ -17,15 +18,15 @@ import java.util.ArrayList;
  * Created by vale on 20/06/16.
  */
 public class HistoricoAdapter extends RecyclerView.Adapter<HistoricoAdapter.MyViewHolder> {
-    private ArrayList<Producto> mListado_Productos;
+    private ArrayList<Producto> mHistorico_Productos;
     private Context context;
 
 
 
     // Provide a suitable constructor (depends on the kind of dataset)
-    public HistoricoAdapter(Context context, ArrayList<Producto> listado_productos) {
+    public HistoricoAdapter(Context context, ArrayList<Producto> historico_productos) {
         this.context = context;
-        mListado_Productos = listado_productos;
+        mHistorico_Productos = historico_productos;
     }
 
     public static class MyViewHolder extends RecyclerView.ViewHolder {
@@ -43,8 +44,7 @@ public class HistoricoAdapter extends RecyclerView.Adapter<HistoricoAdapter.MyVi
 
     // Create new views (invoked by the layout manager)
     @Override
-    public HistoricoAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent,
-                                                          int viewType) {
+    public HistoricoAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent,int viewType) {
         // create a new view
         View v = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.historico_card_item, parent, false);
@@ -55,12 +55,13 @@ public class HistoricoAdapter extends RecyclerView.Adapter<HistoricoAdapter.MyVi
 
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
-        holder.mNombreTxt.setText(mListado_Productos.get(position).getNombre());
-        holder.mFechaTxt.setText(mListado_Productos.get(position).getFechaVisto());
+        holder.mNombreTxt.setText(mHistorico_Productos.get(position).getNombre());
+        holder.mFechaTxt.setText(mHistorico_Productos.get(position).getFechaVisto());
     }
 
     @Override
     public int getItemCount() {
-        return mListado_Productos.size();
+       return mHistorico_Productos.size();
+
     }
 }

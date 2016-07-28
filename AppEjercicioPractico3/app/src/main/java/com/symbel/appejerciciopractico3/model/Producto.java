@@ -45,6 +45,16 @@ public class Producto {
         this.imagen = imagen;
     }
 
+    public Producto(String nombre, String imagen, String fechaVisto) {
+        this.nombre = nombre;
+        this.imagen = imagen;
+        this.fechaVisto = fechaVisto;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
     public String getFechaVisto() {
         return fechaVisto;
     }
