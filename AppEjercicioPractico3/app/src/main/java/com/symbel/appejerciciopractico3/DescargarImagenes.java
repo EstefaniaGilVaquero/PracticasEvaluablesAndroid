@@ -7,27 +7,39 @@ import android.os.AsyncTask;
 import android.widget.ImageView;
 
 import java.io.InputStream;
+import java.net.HttpURLConnection;
 import java.net.URL;
 
-public class DescargarImagenes extends AsyncTask<String, String, Bitmap> {
-    Bitmap bitmap;
-    ImageView img;
+public class DescargarImagenes extends AsyncTask<Void, Void, Bitmap> {
 
-    protected Bitmap doInBackground(String... args) {
+    private String url;
+
+
+    public DescargarImagenes(String url) {
+        this.url = url;
+    }
+
+    @Override
+    protected Bitmap doInBackground(Void... params) {
+        Bitmap myBitmap = null;
         try {
-            bitmap = BitmapFactory.decodeStream((InputStream)new URL(args[0]).getContent());
-
+            URL urlConnection = new URL(url);
+            HttpURLConnection connection = (HttpURLConnection) urlConnection
+                    .openConnection();
+            connection.setDoInput(true);
+            connection.connect();
+            InputStream input = connection.getInputStream();
+            myBitmap = BitmapFactory.decodeStream(input);
+           // return myBitmap;
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return bitmap;
+        return myBitmap;
     }
 
-    protected void onPostExecute(Bitmap image) {
-
-        if(image != null){
-            img.setImageBitmap(image);
-
-        }
+    @Override
+    protected void onPostExecute(Bitmap result) {
+        super.onPostExecute(result);
     }
+
 }

@@ -2,6 +2,7 @@ package com.symbel.appejerciciopractico3.fragment;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -12,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.symbel.appejerciciopractico3.DescargarImagenes;
 import com.symbel.appejerciciopractico3.ObtenerProductos;
 import com.symbel.appejerciciopractico3.R;
 import com.symbel.appejerciciopractico3.adapter.HistoricoAdapter;
@@ -20,6 +22,7 @@ import com.symbel.appejerciciopractico3.model.Producto;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ExecutionException;
 
 
 /**
@@ -68,7 +71,7 @@ public class HistoricoFragment extends Fragment {
 
     }
 
-    public static ArrayList<Producto> cargarHistorico(Context context){
+    public static ArrayList<Producto> cargarHistorico(Context context) {
 
         //Reseteo el historico
         historico_productos = new ArrayList();
@@ -81,9 +84,19 @@ public class HistoricoFragment extends Fragment {
         for (Map.Entry<String, ?> entry : allEntries.entrySet()) {
 
             //El nombre del producto y la imagen vienen concatenados en el value del sharedPreferences
-            String[] result = entry.getValue().toString().split("^");
+            String[] result = entry.getValue().toString().split(";");
+            //Obtenemos la imagen del servidor
+            Bitmap imagencita = null;
+            try {
+                String url = result[1];
+                imagencita = new DescargarImagenes(result[1]).execute().get();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            } catch (ExecutionException e) {
+                e.printStackTrace();
+            }
 
-            producto = new Producto(entry.getKey(),result[0],result[1]);
+            producto = new Producto(result[0],imagencita,entry.getKey());
 
             historico_productos.add(producto);
             Log.d("map values", entry.getKey() + ": " + entry.getValue().toString());

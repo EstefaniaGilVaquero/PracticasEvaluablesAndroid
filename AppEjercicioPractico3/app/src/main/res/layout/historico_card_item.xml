@@ -17,31 +17,29 @@
             android:layout_height="match_parent">
 
             <ImageView
-                android:id="@+id/iv_image"
-                android:layout_height="wrap_content"
-                android:layout_width="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:src="@drawable/gafas_ventisca">
+                android:id="@+id/iv_image_historico"
+                android:layout_height="80dp"
+                android:layout_width="80dp"
+                android:layout_alignParentLeft="true">
             </ImageView>
 
             <TextView
-                android:id="@+id/tv_nombre"
-                android:layout_toRightOf ="@+id/iv_image"
+                android:id="@+id/tv_nombre_historico"
+                android:layout_toRightOf ="@+id/iv_image_historico"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Nombre del Producto"
                 android:textColor="@color/primary_text"
                 android:gravity="center" >
             </TextView>
 
             <TextView
-                android:id="@+id/tv_fecha"
+                android:id="@+id/tv_fecha_historico"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/secondary_text"
-                android:layout_below="@+id/tv_nombre"
-                android:layout_toRightOf="@+id/iv_image"
-                android:layout_toEndOf="@+id/iv_image">
+                android:layout_below="@+id/tv_nombre_historico"
+                android:layout_toRightOf="@+id/iv_image_historico"
+                android:layout_toEndOf="@+id/iv_image_historico">
             </TextView>
 
         </RelativeLayout>

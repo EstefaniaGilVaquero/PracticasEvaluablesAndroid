@@ -1,5 +1,6 @@
 package com.symbel.appejerciciopractico3.model;
 
+import android.graphics.Bitmap;
 import android.media.Image;
 
 import java.util.UUID;
@@ -36,6 +37,16 @@ public class Producto {
     private String fechaVisto;
     private String imagen;
 
+    public Bitmap getImagenBitMap() {
+        return imagenBitMap;
+    }
+
+    public void setImagenBitMap(Bitmap imagenBitMap) {
+        this.imagenBitMap = imagenBitMap;
+    }
+
+    private Bitmap imagenBitMap;
+
     public Producto(String id, String nombre, String precio, String unidades, String descripcion, String imagen) {
         this.id = id;
         this.nombre = nombre;
@@ -45,9 +56,17 @@ public class Producto {
         this.imagen = imagen;
     }
 
-    public Producto(String nombre, String imagen, String fechaVisto) {
+    public Producto(String nombre, String precio, String unidades, String descripcion, Bitmap imagenBitMap) {
         this.nombre = nombre;
-        this.imagen = imagen;
+        this.precio = precio;
+        this.unidades = unidades;
+        this.descripcion = descripcion;
+        this.imagenBitMap = imagenBitMap;
+    }
+
+    public Producto(String nombre, Bitmap imagenBitMap, String fechaVisto) {
+        this.nombre = nombre;
+        this.imagenBitMap = imagenBitMap;
         this.fechaVisto = fechaVisto;
     }
 
@@ -98,6 +117,5 @@ public class Producto {
     public String getDescripcion() {
         return descripcion;
     }
-
 
 }

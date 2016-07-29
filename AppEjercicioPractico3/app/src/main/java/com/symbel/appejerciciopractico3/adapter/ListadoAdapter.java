@@ -3,6 +3,8 @@ package com.symbel.appejerciciopractico3.adapter;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.os.Parcelable;
 import android.support.v7.widget.RecyclerView;
 import android.text.format.DateFormat;
 import android.util.Log;
@@ -11,11 +13,13 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.symbel.appejerciciopractico3.R;
+import com.symbel.appejerciciopractico3.Utils;
 import com.symbel.appejerciciopractico3.activity.DetalleActivity;
 import com.symbel.appejerciciopractico3.fragment.HistoricoFragment;
 import com.symbel.appejerciciopractico3.model.Producto;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -23,7 +27,9 @@ import java.util.Map;
  */
 public class ListadoAdapter extends RecyclerView.Adapter<ListadoHolder> {
     private ArrayList<Producto> mListado_Productos;
+    private HashMap<Integer,Bitmap> mImagenes_Productos;
     private Context context;
+    private int idProducto;
     public final static String HISTORICO_PRODUCTOS = "historico";//nombre del fichero de preferences perfil.xml será
 
 
@@ -50,8 +56,13 @@ public class ListadoAdapter extends RecyclerView.Adapter<ListadoHolder> {
     @Override
     public void onBindViewHolder(ListadoHolder holder, int position) {
 
+        //Id del producto para pillar su imagen
+        idProducto = Integer.parseInt(mListado_Productos.get(position).getId());
+
+
         holder.nombreTxt.setText(mListado_Productos.get(position).getNombre());
         holder.precioTxt.setText(mListado_Productos.get(position).getPrecio() + "€");
+        holder.imagenIv.setImageBitmap(mListado_Productos.get(position).getImagenBitMap());
 
         //Listener del listado de productos
         holder.setItemClickListener(new ItemClickListener() {
@@ -64,7 +75,7 @@ public class ListadoAdapter extends RecyclerView.Adapter<ListadoHolder> {
                 //Cuando se pulsa un item se guarda en preferencias de usuario
                 SharedPreferences prefs = context.getSharedPreferences(HISTORICO_PRODUCTOS,Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = prefs.edit();
-                editor.putString(fechaHoraActual, mListado_Productos.get(pos).getNombre()+"^"+mListado_Productos.get(pos).getImagen());
+                editor.putString(fechaHoraActual, mListado_Productos.get(pos).getNombre()+";"+mListado_Productos.get(pos).getImagen());
                 editor.commit();
 
                 //Pinto preferencias guardadas de prueba
@@ -74,16 +85,21 @@ public class ListadoAdapter extends RecyclerView.Adapter<ListadoHolder> {
                 }
 
                 //Intent de llamada a la actividad detalle
-                Intent i=new Intent(context,DetalleActivity.class);
+                Intent intent = new Intent(context,DetalleActivity.class);
 
                 //Metemos datos en el intent
-                i.putExtra("Nombre",mListado_Productos.get(pos).getNombre());
-                i.putExtra("Precio",mListado_Productos.get(pos).getPrecio());
-                i.putExtra("Unidades",mListado_Productos.get(pos).getUnidades());
-                i.putExtra("Descripcion",mListado_Productos.get(pos).getDescripcion());
+                intent.putExtra("Nombre",mListado_Productos.get(pos).getNombre());
+                intent.putExtra("Precio",mListado_Productos.get(pos).getPrecio());
+                intent.putExtra("Unidades",mListado_Productos.get(pos).getUnidades());
+                intent.putExtra("Descripcion",mListado_Productos.get(pos).getDescripcion());
+
+                //Reducimos un poco la imagen antes de mandarla por el intent pq falllaaaaaaaaaaaaaa jooooooderrrrr
+                Bitmap imagenGrande = mListado_Productos.get(pos).getImagenBitMap();
+                Bitmap imagenPequena = Utils.scaleDownBitmap(imagenGrande,200,context);
+                intent.putExtra("Imagen", imagenPequena);
 
                 //Lanzar actividad
-                context.startActivity(i);
+                context.startActivity(intent);
 
             }
         });

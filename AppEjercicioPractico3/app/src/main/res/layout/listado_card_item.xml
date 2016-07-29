@@ -18,10 +18,9 @@
 
             <ImageView
                 android:id="@+id/iv_image"
-                android:layout_height="wrap_content"
-                android:layout_width="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:src="@drawable/gafas_ventisca">
+                android:layout_height="80dp"
+                android:layout_width="80dp"
+                android:layout_alignParentLeft="true">
             </ImageView>
 
             <TextView

@@ -1,11 +1,13 @@
 package com.symbel.appejerciciopractico3.adapter;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.symbel.appejerciciopractico3.R;
@@ -33,12 +35,14 @@ public class HistoricoAdapter extends RecyclerView.Adapter<HistoricoAdapter.MyVi
        // public CardView mCardView;
         public TextView mNombreTxt;
         public TextView mFechaTxt;
+        public ImageView mImageViewIv;
         public MyViewHolder(View v) {
             super(v);
 
             //mCardView = (CardView) v.findViewById(R.id.card_view);
-            mNombreTxt = (TextView) v.findViewById(R.id.tv_nombre);
-            mFechaTxt = (TextView) v.findViewById(R.id.tv_fecha);
+            mNombreTxt = (TextView) v.findViewById(R.id.tv_nombre_historico);
+            mFechaTxt = (TextView) v.findViewById(R.id.tv_fecha_historico);
+            mImageViewIv = (ImageView) v.findViewById(R.id.iv_image_historico);
         }
     }
 
@@ -57,6 +61,7 @@ public class HistoricoAdapter extends RecyclerView.Adapter<HistoricoAdapter.MyVi
     public void onBindViewHolder(MyViewHolder holder, int position) {
         holder.mNombreTxt.setText(mHistorico_Productos.get(position).getNombre());
         holder.mFechaTxt.setText(mHistorico_Productos.get(position).getFechaVisto());
+        holder.mImageViewIv.setImageBitmap(mHistorico_Productos.get(position).getImagenBitMap());
     }
 
     @Override
