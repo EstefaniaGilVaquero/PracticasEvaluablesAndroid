@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 /**
  * Servlet implementation class ObtenerProductos
@@ -36,7 +37,8 @@ public class ObtenerProductos extends HttpServlet {
     {
     	String productos_json = null;
     	
-    		Gson gson = new Gson();
+    		//Para que no transforme la url a caracteres raros
+    		Gson gson = new GsonBuilder().disableHtmlEscaping().create();
     		productos_json = gson.toJson(lista_productos);
     	
     	return productos_json;
