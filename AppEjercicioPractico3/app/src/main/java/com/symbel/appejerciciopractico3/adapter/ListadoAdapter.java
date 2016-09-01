@@ -10,12 +10,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
 import com.symbel.appejerciciopractico3.R;
 import com.symbel.appejerciciopractico3.utils.Utils;
 import com.symbel.appejerciciopractico3.activity.DetalleActivity;
 import com.symbel.appejerciciopractico3.model.Producto;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;

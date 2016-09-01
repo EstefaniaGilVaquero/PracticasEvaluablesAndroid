@@ -1,17 +1,13 @@
 package com.symbel.appejerciciopractico3.adapter;
 
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import com.symbel.appejerciciopractico3.R;
-import com.symbel.appejerciciopractico3.fragment.HistoricoFragment;
 import com.symbel.appejerciciopractico3.model.Producto;
 
 import java.util.ArrayList;

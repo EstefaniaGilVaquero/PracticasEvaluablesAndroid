@@ -8,8 +8,8 @@ import android.graphics.Bitmap;
  */
 public class Utils {
 
-    public static Bitmap scaleDownBitmap(Bitmap photo, int newHeight, Context context) {
-
+    public static Bitmap scaleDownBitmap(Bitmap photo, int newHeight, Context context)
+    {
         final float densityMultiplier = context.getResources().getDisplayMetrics().density;
 
         int h= (int) (newHeight*densityMultiplier);

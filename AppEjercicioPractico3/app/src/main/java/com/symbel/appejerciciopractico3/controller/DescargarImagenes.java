@@ -1,11 +1,8 @@
 package com.symbel.appejerciciopractico3.controller;
 
-import android.app.ProgressDialog;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
-import android.widget.ImageView;
-
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -13,7 +10,6 @@ import java.net.URL;
 public class DescargarImagenes extends AsyncTask<Void, Void, Bitmap> {
 
     private String url;
-
 
     public DescargarImagenes(String url) {
         this.url = url;
