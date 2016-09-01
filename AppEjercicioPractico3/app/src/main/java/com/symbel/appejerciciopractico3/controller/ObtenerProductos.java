@@ -1,4 +1,4 @@
-package com.symbel.appejerciciopractico3;
+package com.symbel.appejerciciopractico3.controller;
 
 
 import android.app.ProgressDialog;
@@ -9,6 +9,7 @@ import android.util.Log;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.symbel.appejerciciopractico3.Constantes;
 import com.symbel.appejerciciopractico3.adapter.ListadoAdapter;
 import com.symbel.appejerciciopractico3.fragment.HistoricoFragment;
 import com.symbel.appejerciciopractico3.fragment.ListadoFragment;

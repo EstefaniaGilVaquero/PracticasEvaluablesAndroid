@@ -12,16 +12,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.symbel.appejerciciopractico3.DescargarImagenes;
-import com.symbel.appejerciciopractico3.ObtenerProductos;
+import com.symbel.appejerciciopractico3.controller.DescargarImagenes;
+import com.symbel.appejerciciopractico3.controller.ObtenerProductos;
 import com.symbel.appejerciciopractico3.R;
 import com.symbel.appejerciciopractico3.adapter.ListadoAdapter;
 import com.symbel.appejerciciopractico3.model.Producto;
 import com.symbel.appejerciciopractico3.utils.UtilInternet;
 
-import java.net.MalformedURLException;
-import java.net.URI;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.concurrent.ExecutionException;

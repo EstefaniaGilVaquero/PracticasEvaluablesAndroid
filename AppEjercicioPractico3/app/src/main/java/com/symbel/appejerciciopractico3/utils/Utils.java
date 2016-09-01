@@ -1,4 +1,4 @@
-package com.symbel.appejerciciopractico3;
+package com.symbel.appejerciciopractico3.utils;
 
 import android.content.Context;
 import android.graphics.Bitmap;

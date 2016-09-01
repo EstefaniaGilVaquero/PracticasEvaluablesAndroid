@@ -1,4 +1,4 @@
-package com.symbel.appejerciciopractico3;
+package com.symbel.appejerciciopractico3.controller;
 
 import android.app.ProgressDialog;
 import android.graphics.Bitmap;
