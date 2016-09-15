@@ -1,31 +1,34 @@
 package com.symbel.appejerciciopractico4;
 
-import android.content.Context;
-import android.content.Intent;
-import android.content.SharedPreferences;
+
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
-import android.widget.TextView;
 
 import com.symbel.appejerciciopractico4.model.Recados;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.List;
+import java.util.Calendar;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Date;
+import java.util.concurrent.ExecutionException;
 
 
 public class MainActivity extends AppCompatActivity {
 
-    private RecyclerView mRecyclerView;
-    private RecyclerView.Adapter mAdapter;
-    private RecyclerView.LayoutManager mLayoutManager;
+    private static RecyclerView mRecyclerView;
+    private static RecyclerView.Adapter mAdapter;
+    private static RecyclerView.LayoutManager mLayoutManager;
     private static String LOG_TAG = "CardViewActivity";
 
     public static String mURL = "http://elrecadero-ebtm.rhcloud.com/ObtenerListaRecados";
-    //public static String mURL = "http://www.hrsanroque.com/galeria/slider/18.jpg";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,23 +37,29 @@ public class MainActivity extends AppCompatActivity {
 
         Log.d(getClass().getCanonicalName(), "MainActivity iniciado");
 
-        //textView = (TextView) findViewById(R.id.textView);
+        //Llamada a descargaTareas pasando url como parametro
+        Log.d(getClass().getCanonicalName(), "Servicio iniciado");
+        ArrayList<Recados> l_recados = null;
+        DescargaTareas descargaTareas = new DescargaTareas();
+        try {
+            l_recados = descargaTareas.execute(MainActivity.mURL).get();
 
-        //Se lanza un servicio
-        Intent intentService = null;
-        intentService = new Intent(this,MyService.class);
-        startService(intentService);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
 
+        Log.d(getClass().getCanonicalName(), "");
 
         //Alimentamos el cardView
         mRecyclerView = (RecyclerView) findViewById(R.id.my_recycler_view);
         mRecyclerView.setHasFixedSize(true);
         mLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManager);
-        mAdapter = new MyRecyclerViewAdapter(getDataSet());
+
+        mAdapter = new MyRecyclerViewAdapter(ordenarArrayAmazing(l_recados));
         mRecyclerView.setAdapter(mAdapter);
-
-
     }
 
     @Override
@@ -64,13 +73,20 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    public static ArrayList<Recados> ordenarArrayAmazing(ArrayList<Recados> l_recados){
+        //Esta es el mejor metodo para ordenar arrays que he visto en mi vida. Ole ole ole!!!
+        Collections.sort(l_recados, new Comparator<Recados>(){
+            public int compare(Recados s1, Recados s2) {
+                return (s1.getFechaHora().compareToIgnoreCase(s2.getFechaHora()));
+            }
+        });
+
+        return l_recados;
+    }
+
+/*
+//Metodo de prueba
     private ArrayList<Recados> getDataSet() {
-        // results = new ArrayList<DataObject>();
-        /*for (int index = 0; index < 20; index++) {
-            DataObject obj = new DataObject("Some Primary Text " + index,
-                    "Secondary " + index);
-            results.add(index, obj);
-        }*/
 
         ArrayList<Recados> l_recados = new ArrayList<Recados>();
 
@@ -89,6 +105,9 @@ public class MainActivity extends AppCompatActivity {
 
         return l_recados;
     }
+*/
+
+
 
 
 }

@@ -1,7 +1,5 @@
 package com.symbel.appejerciciopractico4.model;
 
-import android.os.Parcel;
-import android.os.Parcelable;
 
 import java.util.Date;
 
@@ -10,34 +8,34 @@ import java.util.Date;
  */
 public class Recados{
 
-    private String fechaHora;
-    private String nombreCliente;
+    private String fecha_hora;
+    private String nombre_cliente;
     private String telefono;
-    private String direccionRecogida;
-    private String direccionEntrega;
+    private String direccion_recogida;
+    private String direccion_entrega;
     private String descripcion;
-    private String fechaHoraMaxima;
+    private String fecha_hora_maxima;
 
 
 
-    public Recados(String fechaHora, String nombreCliente, String telefono, String direccionRecogida,
-                   String direccionEntrega, String descripcion, String fechaHoraMaxima)
+    public Recados(String fecha_hora, String nombre_cliente, String telefono, String direccion_recogida,
+                   String direccion_Entrega, String descripcion, String fecha_hora_maxima)
     {
-        this.fechaHora = fechaHora;
-        this.nombreCliente = nombreCliente;
+        this.fecha_hora = fecha_hora;
+        this.nombre_cliente = nombre_cliente;
         this.telefono = telefono;
-        this.direccionRecogida = direccionRecogida;
-        this.direccionEntrega = direccionEntrega;
+        this.direccion_recogida = direccion_recogida;
+        this.direccion_entrega = direccion_Entrega;
         this.descripcion = descripcion;
-        this.fechaHoraMaxima = fechaHoraMaxima;
+        this.fecha_hora_maxima = fecha_hora_maxima;
     }
 
     public String getFechaHora() {
-        return fechaHora;
+        return fecha_hora;
     }
 
     public String getNombreCliente() {
-        return nombreCliente;
+        return nombre_cliente;
     }
 
     public String getTelefono() {
@@ -45,11 +43,11 @@ public class Recados{
     }
 
     public String getDireccionRecogida() {
-        return direccionRecogida;
+        return direccion_recogida;
     }
 
     public String getDireccionEntrega() {
-        return direccionEntrega;
+        return direccion_entrega;
     }
 
     public String getDescripcion() {
@@ -57,6 +55,6 @@ public class Recados{
     }
 
     public String getFechaHoraMaxima() {
-        return fechaHoraMaxima;
+        return fecha_hora_maxima;
     }
 }

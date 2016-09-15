@@ -13,12 +13,13 @@ import android.widget.TextView;
 import com.symbel.appejerciciopractico4.model.Recados;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class MyRecyclerViewAdapter extends RecyclerView
         .Adapter<MyRecyclerViewAdapter
         .DataObjectHolder> {
     private static String LOG_TAG = "MyRecyclerViewAdapter";
-    private ArrayList<Recados> mDataset;
+    private List<Recados> mDataset;
     private static MyClickListener myClickListener;
 
     public static class DataObjectHolder extends RecyclerView.ViewHolder
@@ -57,7 +58,7 @@ public class MyRecyclerViewAdapter extends RecyclerView
         this.myClickListener = myClickListener;
     }
 
-    public MyRecyclerViewAdapter(ArrayList<Recados> myDataset) {
+    public MyRecyclerViewAdapter(List<Recados> myDataset) {
         mDataset = myDataset;
     }
 
@@ -73,13 +74,13 @@ public class MyRecyclerViewAdapter extends RecyclerView
 
     @Override
     public void onBindViewHolder(DataObjectHolder holder, int position) {
-        holder.fechaHora.setText(mDataset.get(position).getFechaHora());
-        holder.nombreCliente.setText(mDataset.get(position).getNombreCliente());
-        holder.telefono.setText(mDataset.get(position).getTelefono());
-        holder.direccionRecogida.setText(mDataset.get(position).getDireccionRecogida());
-        holder.direccionEntrega.setText(mDataset.get(position).getDireccionEntrega());
-        holder.descripcion.setText(mDataset.get(position).getDescripcion());
-        holder.fechaHoraMaxima.setText(mDataset.get(position).getFechaHoraMaxima());
+        holder.fechaHora.setText("Fecha/Hora: " + mDataset.get(position).getFechaHora());
+        holder.nombreCliente.setText("Nombre: " + mDataset.get(position).getNombreCliente());
+        holder.telefono.setText("Telefono: " + mDataset.get(position).getTelefono());
+        holder.direccionRecogida.setText("Direccion Recogida: " + mDataset.get(position).getDireccionRecogida());
+        holder.direccionEntrega.setText("Direccion Entrega: " + mDataset.get(position).getDireccionEntrega());
+        holder.descripcion.setText("Descripcion: " + mDataset.get(position).getDescripcion());
+        holder.fechaHoraMaxima.setText("Fecha/Hora Maxima: " + mDataset.get(position).getFechaHoraMaxima());
     }
 
     @Override
