@@ -12,7 +12,10 @@ import android.widget.TextView;
 
 import com.symbel.appejerciciopractico4.model.Recados;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class MyRecyclerViewAdapter extends RecyclerView
@@ -44,7 +47,6 @@ public class MyRecyclerViewAdapter extends RecyclerView
             descripcion = (TextView) itemView.findViewById(R.id.textViewDescripcion);
             fechaHoraMaxima = (TextView) itemView.findViewById(R.id.textViewFechaHoraMaxima);
 
-            Log.i(LOG_TAG, "Adding Listener");
             itemView.setOnClickListener(this);
         }
 

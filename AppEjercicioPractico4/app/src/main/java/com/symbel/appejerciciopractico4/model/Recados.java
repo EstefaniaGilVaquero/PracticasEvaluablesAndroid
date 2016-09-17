@@ -8,18 +8,18 @@ import java.util.Date;
  */
 public class Recados{
 
-    private String fecha_hora;
+    private Date fecha_hora;
     private String nombre_cliente;
     private String telefono;
     private String direccion_recogida;
     private String direccion_entrega;
     private String descripcion;
-    private String fecha_hora_maxima;
+    private Date fecha_hora_maxima;
 
 
 
-    public Recados(String fecha_hora, String nombre_cliente, String telefono, String direccion_recogida,
-                   String direccion_Entrega, String descripcion, String fecha_hora_maxima)
+    public Recados(Date fecha_hora, String nombre_cliente, String telefono, String direccion_recogida,
+                   String direccion_Entrega, String descripcion, Date fecha_hora_maxima)
     {
         this.fecha_hora = fecha_hora;
         this.nombre_cliente = nombre_cliente;
@@ -30,7 +30,7 @@ public class Recados{
         this.fecha_hora_maxima = fecha_hora_maxima;
     }
 
-    public String getFechaHora() {
+    public Date getFechaHora() {
         return fecha_hora;
     }
 
@@ -54,7 +54,7 @@ public class Recados{
         return descripcion;
     }
 
-    public String getFechaHoraMaxima() {
+    public Date getFechaHoraMaxima() {
         return fecha_hora_maxima;
     }
 }

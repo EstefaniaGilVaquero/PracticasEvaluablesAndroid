@@ -68,7 +68,4 @@ public class DescargaTareas extends AsyncTask<String,Void,ArrayList<Recados>> {
 
         return l_recados;
     }
-
-
-
 }

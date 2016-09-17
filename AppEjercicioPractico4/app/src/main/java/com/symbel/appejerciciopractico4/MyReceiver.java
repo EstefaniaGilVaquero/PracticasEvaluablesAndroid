@@ -16,9 +16,9 @@ public class MyReceiver extends BroadcastReceiver {
         Log.d(getClass().getCanonicalName(), "Receiver lanzado con el encendido del dispositivo");
 
         //Iniciamos MainActivity
+        Log.d(getClass().getCanonicalName(), "Llamada a MainActivity");
         Intent i = new Intent(context, MainActivity.class);
         i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         context.startActivity(i);
-
     }
 }

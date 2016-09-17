@@ -1,12 +1,16 @@
 package com.symbel.appejerciciopractico4;
 
 
+import android.content.Intent;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageButton;
+import android.widget.Toast;
 
 import com.symbel.appejerciciopractico4.model.Recados;
 
@@ -27,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
     private static RecyclerView.Adapter mAdapter;
     private static RecyclerView.LayoutManager mLayoutManager;
     private static String LOG_TAG = "CardViewActivity";
+    private static ImageButton FAB;
 
     public static String mURL = "http://elrecadero-ebtm.rhcloud.com/ObtenerListaRecados";
 
@@ -37,8 +42,23 @@ public class MainActivity extends AppCompatActivity {
 
         Log.d(getClass().getCanonicalName(), "MainActivity iniciado");
 
+        //Floation Action Buton para refrescar
+        FAB = (ImageButton) findViewById(R.id.fab);
+        FAB.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d(getClass().getCanonicalName(), "Refresco MainActivity");
+                finish();
+               overridePendingTransition(0, 0);//Para que la transicion no se note tanto al refrescar
+                startActivity(getIntent());
+                overridePendingTransition(0, 0);
+            }
+        });
+
+
+
         //Llamada a descargaTareas pasando url como parametro
-        Log.d(getClass().getCanonicalName(), "Servicio iniciado");
+        Log.d(getClass().getCanonicalName(), "Llamada a AsynkTask DescargaTareas");
         ArrayList<Recados> l_recados = null;
         DescargaTareas descargaTareas = new DescargaTareas();
         try {
@@ -57,7 +77,6 @@ public class MainActivity extends AppCompatActivity {
         mRecyclerView.setHasFixedSize(true);
         mLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManager);
-
         mAdapter = new MyRecyclerViewAdapter(ordenarArrayAmazing(l_recados));
         mRecyclerView.setAdapter(mAdapter);
     }
@@ -75,39 +94,16 @@ public class MainActivity extends AppCompatActivity {
 
     public static ArrayList<Recados> ordenarArrayAmazing(ArrayList<Recados> l_recados){
         //Esta es el mejor metodo para ordenar arrays que he visto en mi vida. Ole ole ole!!!
+        //Ordenamos por FechaHora
         Collections.sort(l_recados, new Comparator<Recados>(){
             public int compare(Recados s1, Recados s2) {
-                return (s1.getFechaHora().compareToIgnoreCase(s2.getFechaHora()));
+                return (s1.getFechaHora().compareTo(s2.getFechaHora()));
+
             }
         });
 
         return l_recados;
     }
-
-/*
-//Metodo de prueba
-    private ArrayList<Recados> getDataSet() {
-
-        ArrayList<Recados> l_recados = new ArrayList<Recados>();
-
-        l_recados.add(new Recados("Sep 15, 2016 6:46:50 AM", "Anguita", "659887433", "Calle del Buenismo",
-                    "Registro Propiedad 2", "Obtener nota simple del registro de la propiedad", "Sep 15, 2016 7:16:50 AM"));
-
-        l_recados.add(new Recados("Sep 15, 2016 6:46:50 AM", "asdfasdf", "659887433", "Calle del Buenismo",
-                "asdfasdf Propiedad 2", "Obtener nota simple del registro de la ffff", "Sep 15, 2016 7:16:50 AM"));
-
-        l_recados.add(new Recados("Sep 15, 2016 6:46:50 AM", "Anguita", "659887433", "Calle del Buenismo",
-                "Registro asdfasdf 2", "asdfasdf nota simple del registro de la ff", "Sep 15, 2016 7:16:50 AM"));
-
-        l_recados.add(new Recados("Sep 15, 2016 6:46:50 AM", "asdfsdf", "659887433", "Calle del Buenismo",
-                "Registro Propiedad 2", "Obtener asdfasdfsf simple del registro de la propiedad", "Sep 15, 2016 7:16:50 AM"));
-
-
-        return l_recados;
-    }
-*/
-
-
 
 
 }
