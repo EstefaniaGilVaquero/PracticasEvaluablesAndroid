@@ -3,14 +3,14 @@ package com.example.vale.micamaraapp;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
+import android.media.ExifInterface;
 import android.net.Uri;
+import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
-import android.widget.ImageView;
 import android.widget.ListView;
 
 import java.io.File;
@@ -20,67 +20,41 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-
 public class MainActivity extends AppCompatActivity {
 
     private static final int CODIGO_ACTIVIDAD = 100;
-    private String ruta_captura_foto_actual;
+    public static String[] ruta_captura_foto;
+    private int nfoto;
     private static final String SUFIJO_FOTO = ".jpg";
     private static final String PREFIJO_FOTO = "VALE_PIC_";
-  //  List<Bitmap> lista = new ArrayList<Bitmap>();
+    List<Bitmap> lista = new ArrayList<Bitmap>();
     private ListView listView;
-    public List<String> lista_rutas;
 
-    public final static int NVECES_FOTO = 2;
-
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-
-        lista_rutas = new ArrayList<String>(NVECES_FOTO);
-
-        do
-        {
-            tomarFoto();
-            j = j + 1;
-        }while (j<NVECES_FOTO);
-
-        //Listeners para las imagenes
-        //Listener
-        View.OnClickListener objetoEscuchador = new CompartirFoto(this);
-
-        //CAPTURO EL BOTÓN Y LE ASOCIO EL LISTENER
-        ImageView imageView1 = (ImageView) findViewById(R.id.imageView1);
-        imageView1.setOnClickListener(objetoEscuchador);
-        ImageView imageView2 = (ImageView) findViewById(R.id.imageView2);
-        imageView2.setOnClickListener(objetoEscuchador);
-//        ImageView imageView3 = (ImageView) findViewById(R.id.imageView3);
-//        imageView3.setOnClickListener(objetoEscuchador);
-    }
-
-    private void tomarFoto(){
-        //  String str_dev = null;
-        Intent intent_foto = null;
-        Uri uri_ruta = null;
-
-        Log.d(getClass().getCanonicalName(), "Tomando Foto");
-
-        intent_foto = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        this.ruta_captura_foto_actual = obtenerRutaFichero();
-        lista_rutas.add(ruta_captura_foto_actual);
-        uri_ruta = obtenerUriFromRuta(ruta_captura_foto_actual);
-
-        intent_foto.putExtra(MediaStore.EXTRA_OUTPUT, uri_ruta);
-        startActivityForResult(intent_foto, CODIGO_ACTIVIDAD);
-    }
-
-    private Uri obtenerUriFromRuta(String ruta){
-        Uri uri_dev = null;
+    /**
+     * Si se decide guardar la foto capturada, debo crear antes un fichero y pasar la URI (ruta) del mismo.
+     * Para eso vale esta función: para crear el fichero donde será almacenado la foto y su URI
+     *
+     * @return La URI que identifica al fichero.
+     */
+    private Uri crearFicheroImagen ()
+    {
+        Uri uri_dest = null;
+        String momento_actual = null;
+        String nombre_fichero = null;
         File f = null;
 
-        f = new File(ruta);
+        momento_actual = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS").format(new Date()); //así nos garantizamos emplear un sufijo aleatorio: el nombre del archivo de la imagen incluirá el momento exacto
+
+        nombre_fichero = PREFIJO_FOTO + momento_actual.trim() + SUFIJO_FOTO;
+
+        ruta_captura_foto[nfoto] = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES).getPath()+"/"+nombre_fichero;
+
+
+        Log.d(getClass().getCanonicalName(), "RUTA FOTO = " + ruta_captura_foto);
+
+
+        f = new File(ruta_captura_foto[nfoto]);
+
 
         try
         {
@@ -94,77 +68,36 @@ public class MainActivity extends AppCompatActivity {
             Log.e(getClass().getCanonicalName(), "Error creando el fichero", e);
         }
 
-        uri_dev = Uri.fromFile(f);
+        uri_dest = Uri.fromFile(f);
 
-        Log.d(getClass().getCanonicalName(), "URI FOTO = " + uri_dev.toString());
+        Log.d(getClass().getCanonicalName(), "URI FOTO = " + uri_dest.toString());
 
-        return uri_dev;
+
+        return uri_dest;
     }
 
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
 
+        ruta_captura_foto = new String[3];
+        nfoto = 0;
+        //Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        for(int i=0;i<2;i++) {
 
-    private String obtenerRutaFichero(){
+            Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 
-        String nombreFoto = null;
-        String momento_actual = null;
+            Uri photoURI = crearFicheroImagen();
+            intent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI); //He aquí la parte opcional del código: de emplearse este parámetro, la foto tomada se almacena en una localización concreta y de omitirse, se alamcena en una localización aleatoria
 
-        momento_actual = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date()); //así nos garantizamos emplear un sufijo aleatorio: el nombre del archivo de la imagen incluirá el momento exacto
-        nombreFoto = PREFIJO_FOTO + momento_actual + SUFIJO_FOTO;
-        nombreFoto = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES).getPath()+"/"+nombreFoto;
+            startActivityForResult(intent, nfoto);//el segundo parámetro es una forma de identificar la petición, para poder ser recibida posteriormente, además de indicarle a Android que será una Actividad HIJA
+            nfoto++;
+        }
+        this.listView = (ListView) findViewById(R.id.listView);
+        this.listView.setAdapter(new ListaImagenes(this, lista));
 
-        Log.d(getClass().getCanonicalName(), "RUTA FOTO = " + nombreFoto);
-
-        return nombreFoto;
     }
-
-
-
-
-
-    public Bitmap getBitMapFromFile(String ruta)
-    {
-        Bitmap bitmap = null;
-
-            File imgFile = new File(ruta);
-            bitmap = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
-
-        return bitmap;
-    }
-
-    private void mostrarFotos()
-    {
-        Log.d(getClass().getCanonicalName(), "Mostrando fotos");
-
-        ImageView imageView1 = (ImageView) findViewById(R.id.imageView1);
-        imageView1.setImageBitmap(getBitMapFromFile(lista_rutas.get(0)));
-
-       // ImageView imageView1 = (ImageView) findViewById(R.id.imageView1);
-        imageView1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.d(getClass().getCanonicalName(), "Ha tocado foto 1"); //requestCode == CODIGO_ACTIVIDAD
-
-                Intent shareIntent = new Intent();
-                shareIntent.setAction(Intent.ACTION_SEND);
-
-                Uri uri = Uri.fromFile(new File(lista_rutas.get(0)));
-                shareIntent.putExtra(Intent.EXTRA_STREAM, uri);
-                shareIntent.setType("image/jpeg");
-                startActivity(Intent.createChooser(shareIntent, "ENVIAR FOTO ... "));
-            }
-        });
-
-
-        ImageView imageView2 = (ImageView) findViewById(R.id.imageView2);
-        imageView2.setImageBitmap(getBitMapFromFile(lista_rutas.get(1)));
-
-//        ImageView imageView3 = (ImageView) findViewById(R.id.imageView3);
-//        imageView3.setImageBitmap(getBitMapFromFile(lista_rutas.get(2)));
-    }
-
-    int j = 0;
-
-
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -175,33 +108,39 @@ public class MainActivity extends AppCompatActivity {
         {
             case RESULT_OK:
 
-                    Log.d(getClass().getCanonicalName(), "La cosa fue bien Código " + resultCode);
+                Log.d(getClass().getCanonicalName(), "La cosa fue bien Código " + resultCode);
+                Bitmap bitmap = null; //la foto que se mostrará en la actividad
 
-                    if (data == null)//el fichero ha sido guarado en una ruta => se ha usado el putExtra MediaStore.EXTRA_OUTPUT
+                if (data == null)//el fichero ha sido guarado en una ruta => se ha usado el putExtra MediaStore.EXTRA_OUTPUT
+                {
+                    Log.d(getClass().getCanonicalName(), "Se empleó el parámetro MediaStore.EXTRA_OUTPUT");
+
+                    try
                     {
-                        Log.d(getClass().getCanonicalName(), "Se empleó el parámetro MediaStore.EXTRA_OUTPUT");
+                        File imgFile = new  File(ruta_captura_foto[requestCode]);
+                        bitmap = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
+                        //bitmap = imageOreintationValidator(BitmapFactory.decodeFile(imgFile.getAbsolutePath()), imgFile.getAbsolutePath());
 
-                        try
-                        {
-                            //lista_rutas.add(ruta_captura_foto_actual);
-                            if (j == NVECES_FOTO)
-                            {
-                                mostrarFotos();
-                            }
-                        } catch (Exception e)
-                        {
-                            Log.e(getClass().getCanonicalName(), "ERRORAZO recuperadno la foto tomada" , e);
-                        }
+
+                    } catch (Exception e)
+                    {
+                        Log.e(getClass().getCanonicalName(), "ERRORAZO recuperadno la foto tomada" , e);
                     }
-                    else
-                    { //la foto ha sido capturada y devuelta en un intent = NO se ha usado el putExtra MediaStore.EXTRA_OUTPUT
-                        Log.d(getClass().getCanonicalName(), "NO Se empleó el parámetro MediaStore.EXTRA_OUTPUT : se devolvió el bitmap");
-                    }
+                }
+                else
+                { //la foto ha sido capturada y devuelta en un intent = NO se ha usado el putExtra MediaStore.EXTRA_OUTPUT
+
+                    Log.d(getClass().getCanonicalName(), "NO Se empleó el parámetro MediaStore.EXTRA_OUTPUT : se devolvió el bitmap");
+                    //bitmap = (Bitmap) data.getExtras().get("data");
+                    bitmap = imageOreintationValidator((Bitmap) data.getExtras().get("data"),data.getExtras().get("data").toString() );
+                }
+
+                lista.add(bitmap);
 
                 break;
 
             case RESULT_CANCELED:
-                    Log.d(getClass().getCanonicalName(), "La cosa se canceló " + resultCode);
+                Log.d(getClass().getCanonicalName(), "La cosa se canceló " + resultCode);
                 break;
 
             default:
@@ -209,22 +148,43 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    private Bitmap imageOreintationValidator(Bitmap bitmap, String path) {
 
+        ExifInterface ei;
+        try {
+            ei = new ExifInterface(path);
+            int orientation = ei.getAttributeInt(ExifInterface.TAG_ORIENTATION,
+                    ExifInterface.ORIENTATION_NORMAL);
+            switch (orientation) {
+                case ExifInterface.ORIENTATION_ROTATE_90:
+                    bitmap = rotateImage(bitmap, 90);
+                    break;
+                case ExifInterface.ORIENTATION_ROTATE_180:
+                    bitmap = rotateImage(bitmap, 180);
+                    break;
+                case ExifInterface.ORIENTATION_ROTATE_270:
+                    bitmap = rotateImage(bitmap, 270);
+                    break;
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
+        return bitmap;
+    }
 
+    private Bitmap rotateImage(Bitmap source, float angle) {
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+        Bitmap bitmap = null;
+        Matrix matrix = new Matrix();
+        matrix.postRotate(angle);
+        try {
+            bitmap = Bitmap.createBitmap(source, 0, 0, source.getWidth(), source.getHeight(),
+                    matrix, true);
+        } catch (OutOfMemoryError err) {
+            err.printStackTrace();
+        }
+        return bitmap;
+    }
 
 }
